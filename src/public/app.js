@@ -5,100 +5,54 @@
     result: null,
     history: [],
     loading: false,
-    error: '',
-    lang: localStorage.getItem('ats_ui_lang') || 'en'
+    error: ''
   };
 
-  const I18N = {
-    en: {
-      navOther: 'Check our other app:',
-      navOtherLink: 'RAGFlow Engine',
-      navAnalyze: 'Analyze',
-      navResult: 'Result',
-      navHistory: 'History',
-      newAnalysis: 'New Analysis',
-      title: 'Check if your resume is ATS-friendly',
-      subtitle:
-        'Deterministic ATS scoring with optional AI assistance. No overpromises, only practical improvements.',
-      uploadTitle: 'Upload Resume PDF (optional)',
-      uploadHint: 'If you upload a PDF, you do not need to fill "Resume Text".',
-      uploadNoFile: 'No file selected yet.',
-      uploadSelectedPrefix: 'Selected PDF:',
-      resumeText: 'Resume Text',
-      resumePlaceholder:
-        'If you prefer, paste your resume text here. If you already uploaded a PDF, you can leave this blank.',
-      analyzeBtn: 'Analyze Resume',
-      analyzing: 'Analyzing...',
-      noResult: 'No result yet',
-      runFirst: 'Run an analysis first.',
-      goAnalyze: 'Go to Analyze',
-      atsScore: 'ATS Score',
-      provider: 'Provider',
-      downloadReport: 'Download Markdown Report',
-      finalSummary: 'Final Summary',
-      keywordMatch: 'Keyword Match',
-      structure: 'Structure',
-      readability: 'Readability',
-      contentStrength: 'Content Strength',
-      keywordsFound: 'Keywords Found',
-      keywordsMissing: 'Keywords Missing',
-      detectedIssues: 'Detected Issues',
-      suggestions: 'Actionable Suggestions',
-      none: 'None',
-      historyTitle: 'Analysis History',
-      historySub: 'Open any saved ATS analysis report.',
-      tableRole: 'Analysis ID',
-      tableSource: 'Source',
-      tableDate: 'Date',
-      tableAction: 'Action',
-      noAnalyses: 'No analyses yet.'
-    },
-    pt: {
-      navOther: 'Confira nosso outro app:',
-      navOtherLink: 'RAGFlow Engine',
-      navAnalyze: 'Analisar',
-      navResult: 'Resultado',
-      navHistory: 'Historico',
-      newAnalysis: 'Nova Analise',
-      title: 'Veja se seu curriculo e ATS-friendly',
-      subtitle:
-        'Score ATS deterministico com assistencia opcional de IA. Sem promessas exageradas, apenas melhorias praticas.',
-      uploadTitle: 'Enviar curriculo em PDF (opcional)',
-      uploadHint: 'Se voce enviar PDF, nao precisa preencher "Resume Text".',
-      uploadNoFile: 'Nenhum arquivo selecionado ainda.',
-      uploadSelectedPrefix: 'PDF selecionado:',
-      resumeText: 'Texto do curriculo',
-      resumePlaceholder:
-        'Se preferir, cole o texto do curriculo aqui. Se voce ja enviou PDF, pode deixar em branco.',
-      analyzeBtn: 'Analisar curriculo',
-      analyzing: 'Analisando...',
-      noResult: 'Sem resultado ainda',
-      runFirst: 'Rode uma analise primeiro.',
-      goAnalyze: 'Ir para Analise',
-      atsScore: 'Score ATS',
-      provider: 'Provider',
-      downloadReport: 'Baixar relatorio em Markdown',
-      finalSummary: 'Resumo final',
-      keywordMatch: 'Match de keywords',
-      structure: 'Estrutura',
-      readability: 'Legibilidade',
-      contentStrength: 'Forca de conteudo',
-      keywordsFound: 'Palavras-chave encontradas',
-      keywordsMissing: 'Palavras-chave ausentes',
-      detectedIssues: 'Problemas detectados',
-      suggestions: 'Sugestoes praticas',
-      none: 'Nenhum',
-      historyTitle: 'Historico de analises',
-      historySub: 'Abra qualquer analise ATS salva.',
-      tableRole: 'ID da analise',
-      tableSource: 'Fonte',
-      tableDate: 'Data',
-      tableAction: 'Acao',
-      noAnalyses: 'Nenhuma analise ainda.'
-    }
+  const UI_TEXT = {
+    navOther: 'Confira nosso outro app:',
+    navOtherLink: 'RAGFlow Engine',
+    navAnalyze: 'Analisar',
+    navResult: 'Resultado',
+    navHistory: 'Historico',
+    newAnalysis: 'Nova Analise',
+    title: 'Veja se seu curriculo e compativel com ATS',
+    subtitle:
+      'Score ATS deterministico com assistencia opcional de IA. Sem promessas exageradas, apenas melhorias praticas.',
+    uploadTitle: 'Enviar curriculo em PDF (opcional)',
+    uploadHint: 'Se voce enviar PDF, nao precisa preencher "Texto do curriculo".',
+    uploadNoFile: 'Nenhum arquivo selecionado ainda.',
+    uploadSelectedPrefix: 'PDF selecionado:',
+    resumeText: 'Texto do curriculo',
+    resumePlaceholder:
+      'Se preferir, cole o texto do curriculo aqui. Se voce ja enviou PDF, pode deixar em branco.',
+    analyzeBtn: 'Analisar curriculo',
+    analyzing: 'Analisando...',
+    noResult: 'Sem resultado ainda',
+    runFirst: 'Rode uma analise primeiro.',
+    goAnalyze: 'Ir para Analise',
+    atsScore: 'Score ATS',
+    provider: 'Provedor',
+    downloadReport: 'Baixar relatorio em Markdown',
+    finalSummary: 'Resumo final',
+    keywordMatch: 'Aderencia de palavras-chave',
+    structure: 'Estrutura',
+    readability: 'Legibilidade',
+    contentStrength: 'Forca de conteudo',
+    keywordsFound: 'Palavras-chave encontradas',
+    keywordsMissing: 'Palavras-chave ausentes',
+    detectedIssues: 'Problemas detectados',
+    suggestions: 'Sugestoes praticas',
+    none: 'Nenhum',
+    historyTitle: 'Historico de analises',
+    historySub: 'Abra qualquer analise ATS salva.',
+    tableRole: 'ID da analise',
+    tableSource: 'Fonte',
+    tableDate: 'Data',
+    tableAction: 'Acao',
+    noAnalyses: 'Nenhuma analise ainda.'
   };
 
-  const t = (key) => I18N[state.lang][key] || I18N.en[key] || key;
+  const t = (key) => UI_TEXT[key] || key;
 
   function syncTopNavText() {
     const map = {
@@ -115,9 +69,7 @@
       if (node) node.textContent = text;
     });
 
-    const btn = document.getElementById('translate-btn');
-    if (btn) btn.textContent = state.lang === 'pt' ? 'EN' : 'PT';
-    document.documentElement.lang = state.lang === 'pt' ? 'pt-BR' : 'en';
+    document.documentElement.lang = 'pt-BR';
   }
 
   function scoreColor(score) {
@@ -134,12 +86,6 @@
 
   function setPage(page) {
     state.page = page;
-    render();
-  }
-
-  function toggleLang() {
-    state.lang = state.lang === 'pt' ? 'en' : 'pt';
-    localStorage.setItem('ats_ui_lang', state.lang);
     render();
   }
 
@@ -163,7 +109,7 @@
   async function loadHistory() {
     try {
       const response = await fetch('/api/v1/analyses');
-      if (!response.ok) throw new Error('Failed to load history');
+      if (!response.ok) throw new Error('Nao foi possivel carregar o historico.');
       state.history = await response.json();
       render();
     } catch (error) {
@@ -175,7 +121,7 @@
   async function openAnalysis(id) {
     try {
       const response = await fetch('/api/v1/analyses/' + id);
-      if (!response.ok) throw new Error('Failed to load analysis');
+      if (!response.ok) throw new Error('Nao foi possivel carregar a analise.');
       state.result = await response.json();
       state.page = 'result';
       render();
@@ -209,7 +155,7 @@
       }
 
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Failed to analyze');
+      if (!response.ok) throw new Error(data.error || 'Nao foi possivel analisar o curriculo.');
 
       state.result = data;
       state.page = 'result';
@@ -289,7 +235,7 @@
             </div>
             <div>
               <h3 class="text-xl font-bold">${t('atsScore')}</h3>
-              <p class="text-sm text-on-surface-variant mt-1">${t('provider')}: ${(r.llm && r.llm.provider) || 'none'}</p>
+              <p class="text-sm text-on-surface-variant mt-1">${t('provider')}: ${(r.llm && r.llm.provider) || 'nenhum'}</p>
             </div>
             <a href="/api/v1/analyses/${r.analysisId}/report" target="_blank" class="w-full py-3 bg-gradient-to-r from-primary to-primary-container text-white font-bold rounded-lg shadow-lg text-center">${t('downloadReport')}</a>
           </div>
@@ -466,11 +412,6 @@
     const goAnalyze = document.getElementById('go-analyze');
     if (goAnalyze) goAnalyze.addEventListener('click', () => setPage('analyze'));
 
-    const translateBtn = document.getElementById('translate-btn');
-    if (translateBtn && !translateBtn.dataset.bound) {
-      translateBtn.dataset.bound = '1';
-      translateBtn.addEventListener('click', toggleLang);
-    }
   }
 
   function render() {

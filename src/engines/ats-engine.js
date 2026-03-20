@@ -1,4 +1,4 @@
-﻿const { clampScore, detectLanguage, normalizeText, unique } = require("../utils/text-utils");
+const { clampScore, normalizeText, unique } = require("../utils/text-utils");
 
 const SECTION_PATTERNS = {
   summary: ["summary", "resumo", "perfil"],
@@ -47,23 +47,18 @@ const TECH_TERMS = [
 ];
 
 const CORE_ATS_KEYWORDS = [
-  "experience",
-  "experiencia",
-  "skills",
-  "habilidades",
-  "education",
-  "formacao",
-  "projects",
-  "projetos",
-  "results",
-  "resultados",
-  "api",
-  "sql",
-  "docker",
-  "cloud",
-  "aws",
-  "azure",
-  "kubernetes"
+  { label: "experiencia", aliases: ["experience", "experiencia"] },
+  { label: "habilidades", aliases: ["skills", "habilidades", "competencias"] },
+  { label: "formacao", aliases: ["education", "formacao", "academic"] },
+  { label: "projetos", aliases: ["projects", "projetos", "portfolio"] },
+  { label: "resultados", aliases: ["results", "resultados", "achievements"] },
+  { label: "api", aliases: ["api", "apis"] },
+  { label: "sql", aliases: ["sql"] },
+  { label: "docker", aliases: ["docker"] },
+  { label: "nuvem", aliases: ["cloud", "nuvem"] },
+  { label: "aws", aliases: ["aws", "amazon web services"] },
+  { label: "azure", aliases: ["azure"] },
+  { label: "kubernetes", aliases: ["kubernetes", "k8s"] }
 ];
 
 const I18N = {
@@ -130,19 +125,21 @@ function t(language, key) {
 }
 
 function analyzeKeywords(resumeText) {
-  const extracted = CORE_ATS_KEYWORDS;
   const normalizedResume = normalizeText(resumeText);
   const found = [];
   const missing = [];
 
-  for (const keyword of extracted) {
-    const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const pattern = new RegExp(`(^|\\s)${escaped}(\\s|$)`, "i");
-    if (pattern.test(normalizedResume)) found.push(keyword);
-    else missing.push(keyword);
+  for (const keyword of CORE_ATS_KEYWORDS) {
+    const matched = keyword.aliases.some((alias) => {
+      const escaped = alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const pattern = new RegExp(`(^|\\s)${escaped}(\\s|$)`, "i");
+      return pattern.test(normalizedResume);
+    });
+    if (matched) found.push(keyword.label);
+    else missing.push(keyword.label);
   }
 
-  const score = extracted.length ? (found.length / extracted.length) * 100 : 50;
+  const score = CORE_ATS_KEYWORDS.length ? (found.length / CORE_ATS_KEYWORDS.length) * 100 : 50;
   return {
     keywordsFound: unique(found),
     keywordsMissing: unique(missing),
@@ -293,7 +290,7 @@ function buildDeterministicSummary({ language, atsScore, keywordMatchScore, stru
 }
 
 function analyzeResume({ resumeText }) {
-  const language = detectLanguage(resumeText);
+  const language = "pt";
 
   const keywordData = analyzeKeywords(resumeText);
   const structureData = analyzeStructure(resumeText);

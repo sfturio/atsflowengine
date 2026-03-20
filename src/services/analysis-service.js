@@ -51,7 +51,6 @@ async function runAnalysis({ resumeText, sourceType }) {
   const llmResponse = await generateText({
     systemPrompt: ATS_FEEDBACK_SYSTEM_PROMPT,
     userPrompt: buildAtsFeedbackPrompt({
-      language: deterministic?.metadata?.language || "en",
       suggestions: deterministic.improvementSuggestions,
       summary: deterministic.shortFinalSummary
     }),

@@ -1,35 +1,18 @@
 function buildMarkdownReport(result) {
-  const language = result?.metadata?.language === "pt" ? "pt" : "en";
-  const labels =
-    language === "pt"
-      ? {
-          title: "# Relatorio ATSFlow",
-          ats: "ATS Score",
-          keyword: "Keyword Match Score",
-          structure: "Structure Score",
-          readability: "Readability Score",
-          content: "Content Strength Score",
-          found: "## Palavras-chave encontradas",
-          missing: "## Palavras-chave ausentes",
-          issues: "## Problemas detectados",
-          suggestions: "## Sugestoes de melhoria",
-          summary: "## Resumo final",
-          none: "- Nenhum"
-        }
-      : {
-          title: "# ATSFlow Analysis Report",
-          ats: "ATS Score",
-          keyword: "Keyword Match Score",
-          structure: "Structure Score",
-          readability: "Readability Score",
-          content: "Content Strength Score",
-          found: "## Keywords Found",
-          missing: "## Keywords Missing",
-          issues: "## Detected Issues",
-          suggestions: "## Improvement Suggestions",
-          summary: "## Final Summary",
-          none: "- None"
-        };
+  const labels = {
+    title: "# Relatorio ATSFlow",
+    ats: "Score ATS",
+    keyword: "Score de aderencia de palavras-chave",
+    structure: "Score de estrutura",
+    readability: "Score de legibilidade",
+    content: "Score de forca de conteudo",
+    found: "## Palavras-chave encontradas",
+    missing: "## Palavras-chave ausentes",
+    issues: "## Problemas detectados",
+    suggestions: "## Sugestoes de melhoria",
+    summary: "## Resumo final",
+    none: "- Nenhum"
+  };
 
   const lines = [
     labels.title,
