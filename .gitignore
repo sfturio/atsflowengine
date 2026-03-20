@@ -7,5 +7,3 @@ uploads/*
 data/*.db
 data/*.db-wal
 data/*.db-shm
-reports/*
-!reports/.gitkeep
