@@ -16,58 +16,58 @@
     navOtherLink: 'RAGFlow Engine',
     navAnalyze: 'Analisar',
     navResult: 'Resultado',
-    navHistory: 'Historico',
+    navHistory: 'Histórico',
     navAbout: 'Sobre',
-    newAnalysis: 'Nova Analise',
-    title: 'Veja se seu curriculo e compativel com ATS',
+    newAnalysis: 'Nova Análise',
+    title: 'Veja se seu currículo é compatível com ATS',
     subtitle:
-      'Score ATS deterministico com assistencia opcional de IA. Sem promessas exageradas, apenas melhorias praticas.',
-    uploadTitle: 'Enviar curriculo em PDF (opcional)',
+      'Score ATS determinístico com assistência opcional de IA. Sem promessas exageradas, apenas melhorias práticas.',
+    uploadTitle: 'Enviar currículo em PDF (opcional)',
     uploadNoFile: 'Nenhum arquivo selecionado ainda.',
     uploadSelectedPrefix: 'PDF selecionado:',
-    resumeText: 'Texto do curriculo',
+    resumeText: 'Texto do currículo',
     resumePlaceholder:
-      'Se preferir, cole o texto do curriculo aqui. Se voce ja enviou PDF, pode deixar em branco.',
-    analyzeBtn: 'Analisar curriculo',
+      'Se preferir, cole o texto do currículo aqui. Se você já enviou PDF, pode deixar em branco.',
+    analyzeBtn: 'Analisar currículo',
     analyzing: 'Analisando...',
     noResult: 'Sem resultado ainda',
-    runFirst: 'Rode uma analise primeiro.',
-    goAnalyze: 'Ir para Analise',
+    runFirst: 'Rode uma análise primeiro.',
+    goAnalyze: 'Ir para Análise',
     atsScore: 'Score ATS',
     provider: 'Provedor',
-    downloadReport: 'Baixar relatorio em Markdown',
+    downloadReport: 'Baixar relatório em Markdown',
     finalSummary: 'Resumo final',
-    keywordMatch: 'Aderencia de palavras-chave',
+    keywordMatch: 'Aderência de palavras-chave',
     structure: 'Estrutura',
     readability: 'Legibilidade',
-    contentStrength: 'Forca de conteudo',
+    contentStrength: 'Força de conteúdo',
     keywordsFound: 'Palavras-chave encontradas',
     keywordsMissing: 'Palavras-chave ausentes',
     detectedIssues: 'Problemas detectados',
-    suggestions: 'Sugestoes praticas',
+    suggestions: 'Sugestões práticas',
     none: 'Nenhum',
-    historyTitle: 'Historico de analises',
-    historySub: 'Abra qualquer analise ATS salva.',
-    tableRole: 'ID da analise',
+    historyTitle: 'Histórico de análises',
+    historySub: 'Abra qualquer análise ATS salva.',
+    tableRole: 'ID da análise',
     tableSource: 'Fonte',
     tableDate: 'Data',
-    tableAction: 'Acao',
-    noAnalyses: 'Nenhuma analise ainda.',
+    tableAction: 'Ação',
+    noAnalyses: 'Nenhuma análise ainda.',
     aboutTitle: 'Sobre o ATSFlow Engine',
     aboutSubtitle:
-      'Entenda como o ATSFlow ajuda voce a otimizar seu curriculo para processos seletivos modernos e aumentar suas chances de entrevista.',
+      'Entenda como o ATSFlow ajuda você a otimizar seu currículo para processos seletivos modernos e aumentar suas chances de entrevista.',
     aboutWhatIsTitle: 'O que este app faz',
     aboutWhatIsBody:
-      'O ATSFlow analisa seu curriculo com foco em compatibilidade com sistemas de recrutamento (ATS), avaliando estrutura, clareza do conteudo e aderencia as competencias exigidas na vaga. O resultado e um diagnostico pratico com sugestoes objetivas para melhorar sua performance em processos seletivos.',
-    aboutHowTitle: 'Como a analise e calculada',
+      'O ATSFlow analisa seu currículo com foco em compatibilidade com sistemas de recrutamento (ATS), avaliando estrutura, clareza do conteúdo e aderência às competências exigidas na vaga. O resultado é um diagnóstico prático com sugestões objetivas para melhorar sua performance em processos seletivos.',
+    aboutHowTitle: 'Como a análise é calculada',
     aboutHowBody:
-      'A pontuacao combina diferentes fatores relevantes para recrutadores e sistemas automatizados, como correspondencia de palavras-chave, organizacao das secoes, legibilidade e impacto das descricoes profissionais. Isso gera um score transparente e facil de interpretar.',
+      'A pontuação combina diferentes fatores relevantes para recrutadores e sistemas automatizados, como correspondência de palavras-chave, organização das seções, legibilidade e impacto das descrições profissionais. Isso gera um score transparente e fácil de interpretar.',
     aboutLimitsTitle: 'Limites importantes',
     aboutLimitsBody:
-      'O ATSFlow nao substitui avaliacao humana nem garante aprovacao em vagas. A ferramenta existe para apoiar decisoes mais estrategicas, ajudando candidatos a priorizar melhorias com base em criterios reais do mercado.',
-    aboutTechTitle: 'Base tecnica',
+      'O ATSFlow não substitui avaliação humana nem garante aprovação em vagas. A ferramenta existe para apoiar decisões mais estratégicas, ajudando candidatos a priorizar melhorias com base em critérios reais do mercado.',
+    aboutTechTitle: 'Base técnica',
     aboutTechBody:
-      'Construido com arquitetura moderna em Node.js e processamento inteligente de documentos, o ATSFlow integra heuristicas deterministicas e analise assistida por IA para entregar feedback consistente, rapido e resiliente.'
+      'Construído com arquitetura moderna em Node.js e processamento inteligente de documentos, o ATSFlow integra heurísticas determinísticas e análise assistida por IA para entregar feedback consistente, rápido e resiliente.'
   };
 
   const t = (key) => UI_TEXT[key] || key;
@@ -95,32 +95,32 @@
           </div>
 
           <ol class="space-y-3 text-[15px] leading-relaxed list-decimal pl-5 mb-10">
-            <li>Envie seu curriculo em PDF ou cole o texto.</li>
-            <li>Adicione a descricao da vaga que voce quer atingir.</li>
+            <li>Envie seu currículo em PDF ou cole o texto.</li>
+            <li>Adicione a descrição da vaga que você quer atingir.</li>
             <li>Opcionalmente, defina seu cargo alvo.</li>
-            <li>Rode a analise.</li>
-            <li>Revise os scores, insights e sugestoes de melhoria.</li>
-            <li>Baixe ou revise sua analise depois no Historico.</li>
+            <li>Rode a análise.</li>
+            <li>Revise os scores, insights e sugestões de melhoria.</li>
+            <li>Baixe ou revise sua análise depois no Histórico.</li>
           </ol>
 
           <section class="mb-10">
             <h3 class="text-xl font-bold mb-4">Perguntas Frequentes</h3>
             <div class="space-y-4 text-[15px] leading-relaxed">
-              <div><p class="font-semibold">Esta analise e 100% precisa?</p><p class="text-slate-600">Nao. Esta ferramenta combina analise deterministica e assistencia de IA para orientar, sem garantias absolutas.</p></div>
-              <div><p class="font-semibold">Voce armazena meu curriculo?</p><p class="text-slate-600">As analises podem ser armazenadas localmente para melhorar sua experiencia e manter historico.</p></div>
-              <div><p class="font-semibold">Posso usar isso em candidaturas reais?</p><p class="text-slate-600">Sim. A ferramenta ajuda a otimizar estrutura e posicionamento, mas ajustes finais sempre sao recomendados.</p></div>
-              <div><p class="font-semibold">Por que os scores diferem de outras ferramentas?</p><p class="text-slate-600">Cada plataforma usa heuristicas e modelos diferentes. Este app prioriza clareza, transparencia e insights acionaveis.</p></div>
-              <div><p class="font-semibold">Qual a diferenca entre ATSFlow e RAGFlow?</p><p class="text-slate-600">ATSFlow foca em otimizacao tecnica para ATS. RAGFlow foca em match semantico e estrategia de carreira.</p></div>
+              <div><p class="font-semibold">Esta análise é 100% precisa?</p><p class="text-slate-600">Não. Esta ferramenta combina análise determinística e assistência de IA para orientar, sem garantias absolutas.</p></div>
+              <div><p class="font-semibold">Você armazena meu currículo?</p><p class="text-slate-600">As análises podem ser armazenadas localmente para melhorar sua experiência e manter histórico.</p></div>
+              <div><p class="font-semibold">Posso usar isso em candidaturas reais?</p><p class="text-slate-600">Sim. A ferramenta ajuda a otimizar estrutura e posicionamento, mas ajustes finais sempre são recomendados.</p></div>
+              <div><p class="font-semibold">Por que os scores diferem de outras ferramentas?</p><p class="text-slate-600">Cada plataforma usa heurísticas e modelos diferentes. Este app prioriza clareza, transparência e insights acionáveis.</p></div>
+              <div><p class="font-semibold">Qual a diferença entre ATSFlow e RAGFlow?</p><p class="text-slate-600">ATSFlow foca em otimização técnica para ATS. RAGFlow foca em match semântico e estratégia de carreira.</p></div>
             </div>
           </section>
 
           <section>
             <h3 class="text-xl font-bold mb-4">Dicas para melhores resultados</h3>
             <ul class="space-y-2 text-[15px] leading-relaxed list-disc pl-5 text-slate-700">
-              <li>Use descricoes de vaga completas.</li>
-              <li>Evite curriculos extremamente curtos.</li>
-              <li>Foque em conquistas mensuraveis.</li>
-              <li>Mantenha a formatacao simples e amigavel para ATS.</li>
+              <li>Use descrições de vaga completas.</li>
+              <li>Evite currículos extremamente curtos.</li>
+              <li>Foque em conquistas mensuráveis.</li>
+              <li>Mantenha a formatação simples e amigável para ATS.</li>
             </ul>
           </section>
         </div>
@@ -136,7 +136,7 @@
             <h2 class="text-2xl font-bold tracking-tight">Feedback</h2>
             <button id="close-feedback" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-slate-100 hover:bg-slate-200">Fechar</button>
           </div>
-          <label for="feedback-input" class="block text-sm font-semibold mb-3">Compartilhe sua sugestao ou reporte um problema</label>
+          <label for="feedback-input" class="block text-sm font-semibold mb-3">Compartilhe sua sugestão ou reporte um problema</label>
           <textarea id="feedback-input" class="w-full h-44 p-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100 resize-none" placeholder="Digite seu feedback aqui...">${state.feedbackText || ''}</textarea>
           <div class="mt-5 flex justify-end">
             <button id="send-feedback" class="px-5 py-2.5 rounded-xl text-white font-semibold bg-indigo-600 hover:bg-indigo-500 transition-colors">Enviar Feedback</button>
@@ -211,7 +211,7 @@
   async function loadHistory() {
     try {
       const response = await fetch('/api/v1/analyses');
-      if (!response.ok) throw new Error('Nao foi possivel carregar o historico.');
+      if (!response.ok) throw new Error('Não foi possível carregar o histórico.');
       state.history = await response.json();
       render();
     } catch (error) {
@@ -223,7 +223,7 @@
   async function openAnalysis(id) {
     try {
       const response = await fetch('/api/v1/analyses/' + id);
-      if (!response.ok) throw new Error('Nao foi possivel carregar a analise.');
+      if (!response.ok) throw new Error('Não foi possível carregar a análise.');
       state.result = await response.json();
       state.page = 'result';
       render();
@@ -257,7 +257,7 @@
       }
 
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Nao foi possivel analisar o curriculo.');
+      if (!response.ok) throw new Error(data.error || 'Não foi possível analisar o currículo.');
 
       state.result = data;
       state.page = 'result';
@@ -605,7 +605,7 @@
             body: JSON.stringify({ message: feedback })
           });
           const data = await response.json();
-          if (!response.ok) throw new Error(data.error || 'Nao foi possivel enviar feedback.');
+          if (!response.ok) throw new Error(data.error || 'Não foi possível enviar feedback.');
           state.feedbackText = '';
           state.feedbackOpen = false;
           render();
