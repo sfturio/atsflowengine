@@ -22,6 +22,8 @@
         'Deterministic ATS scoring with optional AI assistance. No overpromises, only practical improvements.',
       uploadTitle: 'Upload Resume PDF (optional)',
       uploadHint: 'If you upload a PDF, you do not need to fill "Resume Text".',
+      uploadNoFile: 'No file selected yet.',
+      uploadSelectedPrefix: 'Selected PDF:',
       resumeText: 'Resume Text',
       resumePlaceholder:
         'If you prefer, paste your resume text here. If you already uploaded a PDF, you can leave this blank.',
@@ -63,6 +65,8 @@
         'Score ATS deterministico com assistencia opcional de IA. Sem promessas exageradas, apenas melhorias praticas.',
       uploadTitle: 'Enviar curriculo em PDF (opcional)',
       uploadHint: 'Se voce enviar PDF, nao precisa preencher "Resume Text".',
+      uploadNoFile: 'Nenhum arquivo selecionado ainda.',
+      uploadSelectedPrefix: 'PDF selecionado:',
       resumeText: 'Texto do curriculo',
       resumePlaceholder:
         'Se preferir, cole o texto do curriculo aqui. Se voce ja enviou PDF, pode deixar em branco.',
@@ -139,6 +143,23 @@
     render();
   }
 
+  function updateUploadStatus(file) {
+    const zone = document.getElementById('resume-upload-zone');
+    const status = document.getElementById('resume-upload-status');
+    if (!zone || !status) return;
+
+    if (!file) {
+      zone.classList.remove('border-primary', 'bg-primary-fixed/40');
+      zone.classList.add('border-outline-variant/20');
+      status.textContent = t('uploadNoFile');
+      return;
+    }
+
+    zone.classList.remove('border-outline-variant/20');
+    zone.classList.add('border-primary', 'bg-primary-fixed/40');
+    status.textContent = `${t('uploadSelectedPrefix')} ${file.name}`;
+  }
+
   async function loadHistory() {
     try {
       const response = await fetch('/api/v1/analyses');
@@ -213,13 +234,14 @@
 
         <form id="analyze-form" class="max-w-3xl mx-auto space-y-6">
           <div class="space-y-6">
-            <label class="bg-surface-container-lowest rounded-xl p-8 shadow-sm border-2 border-dashed border-outline-variant/20 hover:border-primary/40 transition-all flex flex-col items-center justify-center cursor-pointer text-center aspect-[16/6]">
+            <label id="resume-upload-zone" class="bg-surface-container-lowest rounded-xl p-8 shadow-sm border-2 border-dashed border-outline-variant/20 hover:border-primary/40 transition-all flex flex-col items-center justify-center cursor-pointer text-center aspect-[16/6]">
               <input type="file" name="resume_pdf" accept=".pdf" class="hidden" />
               <div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center text-primary mb-4">
                 <span class="material-symbols-outlined text-3xl">upload_file</span>
               </div>
               <h3 class="text-lg font-semibold">${t('uploadTitle')}</h3>
               <p class="text-sm text-on-surface-variant mt-1">${t('uploadHint')}</p>
+              <p id="resume-upload-status" class="text-xs font-semibold text-on-surface-variant mt-3">${t('uploadNoFile')}</p>
             </label>
 
             <div class="space-y-3">
@@ -423,6 +445,15 @@
         event.preventDefault();
         submitAnalysis(form);
       });
+
+      const fileInput = form.querySelector('[name="resume_pdf"]');
+      if (fileInput) {
+        fileInput.addEventListener('change', () => {
+          const file = fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
+          updateUploadStatus(file);
+        });
+        updateUploadStatus(fileInput.files && fileInput.files[0] ? fileInput.files[0] : null);
+      }
     }
 
     document.querySelectorAll('[data-open]').forEach((node) => {
