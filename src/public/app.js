@@ -351,6 +351,15 @@
     if (goAnalyze) {
       goAnalyze.addEventListener('click', () => setPage('analyze'));
     }
+
+    const translateBtn = document.getElementById('translate-btn');
+    if (translateBtn && !translateBtn.dataset.bound) {
+      translateBtn.dataset.bound = '1';
+      translateBtn.addEventListener('click', () => {
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://translate.google.com/translate?sl=auto&tl=en&u=${url}`, '_blank');
+      });
+    }
   }
 
   function render() {
