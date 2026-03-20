@@ -211,8 +211,8 @@
 
         ${state.error ? `<div class="bg-error-container text-on-error-container rounded-xl p-4 font-medium">${state.error}</div>` : ''}
 
-        <form id="analyze-form" class="grid grid-cols-1 md:grid-cols-12 gap-8">
-          <div class="md:col-span-7 space-y-6">
+        <form id="analyze-form" class="max-w-3xl mx-auto space-y-6">
+          <div class="space-y-6">
             <label class="bg-surface-container-lowest rounded-xl p-8 shadow-sm border-2 border-dashed border-outline-variant/20 hover:border-primary/40 transition-all flex flex-col items-center justify-center cursor-pointer text-center aspect-[16/6]">
               <input type="file" name="resume_pdf" accept=".pdf" class="hidden" />
               <div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center text-primary mb-4">
@@ -227,10 +227,7 @@
               <textarea name="resume_text" class="w-full h-56 p-6 bg-surface-container-lowest rounded-lg border-none focus:ring-2 focus:ring-primary/20 resize-none" placeholder="${t('resumePlaceholder')}"></textarea>
             </div>
           </div>
-
-          <div class="md:col-span-5"></div>
-
-          <div class="md:col-span-12 flex flex-col items-center pt-2">
+          <div class="flex flex-col items-center pt-2">
             <button ${state.loading ? 'disabled' : ''} class="px-12 py-5 rounded-xl text-lg font-bold text-white bg-gradient-to-br from-primary to-primary-container shadow-xl shadow-primary/20 disabled:opacity-50">
               ${state.loading ? t('analyzing') : t('analyzeBtn')}
             </button>
