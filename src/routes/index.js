@@ -5,7 +5,8 @@ const {
   analyzeText,
   getHistoryItem,
   getReport,
-  listHistory
+  listHistory,
+  submitFeedback
 } = require("../controllers/analysis-controller");
 
 const router = express.Router();
@@ -14,6 +15,7 @@ const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 8 *
 router.get("/health", (req, res) => res.json({ status: "ok", service: "atsflow-engine" }));
 router.post("/api/v1/analyze-text", analyzeText);
 router.post("/api/v1/analyze-pdf", upload.single("resume_pdf"), analyzePdf);
+router.post("/api/v1/feedback", submitFeedback);
 router.get("/api/v1/analyses", listHistory);
 router.get("/api/v1/analyses/:id", getHistoryItem);
 router.get("/api/v1/analyses/:id/report", getReport);

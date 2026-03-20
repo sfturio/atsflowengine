@@ -3,7 +3,8 @@ const { buildMarkdownReport } = require("../engines/report-engine");
 const {
   getAnalysisById,
   listAnalyses,
-  saveAnalysis
+  saveAnalysis,
+  saveFeedback
 } = require("../repositories/analysis-repository");
 const { generateText } = require("../lib/llm");
 const {
@@ -73,8 +74,13 @@ async function getAnalyses(limit = 20) {
   return listAnalyses(limit);
 }
 
+async function createFeedback(message) {
+  return saveFeedback(message);
+}
+
 module.exports = {
   getAnalyses,
   getAnalysisById,
-  runAnalysis
+  runAnalysis,
+  createFeedback
 };
