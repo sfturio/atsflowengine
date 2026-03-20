@@ -1,16 +1,124 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html class="light" lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ATSFlow Engine</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-dim": "#d9dadb",
+              "on-primary-container": "#fffbff",
+              "primary-fixed-dim": "#c0c1ff",
+              "on-background": "#191c1d",
+              "primary-fixed": "#e1e0ff",
+              "on-surface": "#191c1d",
+              "on-secondary-fixed-variant": "#404178",
+              "surface-container-high": "#e7e8e9",
+              "outline": "#767586",
+              "surface-bright": "#f8f9fa",
+              "on-tertiary": "#ffffff",
+              "on-tertiary-fixed-variant": "#703700",
+              "surface-variant": "#e1e3e4",
+              "on-tertiary-fixed": "#301400",
+              "tertiary-fixed": "#ffdcc5",
+              "inverse-on-surface": "#f0f1f2",
+              "secondary-fixed": "#e1e0ff",
+              "secondary-fixed-dim": "#c0c1ff",
+              "secondary": "#575992",
+              "inverse-surface": "#2e3132",
+              "surface-container": "#edeeef",
+              "inverse-primary": "#c0c1ff",
+              "on-primary-fixed": "#07006c",
+              "on-surface-variant": "#464554",
+              "on-primary-fixed-variant": "#2f2ebe",
+              "on-error": "#ffffff",
+              "surface": "#f8f9fa",
+              "outline-variant": "#c7c4d7",
+              "tertiary": "#904900",
+              "on-secondary": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed": "#13144a",
+              "on-tertiary-container": "#fffbff",
+              "background": "#f8f9fa",
+              "on-primary": "#ffffff",
+              "error": "#ba1a1a",
+              "on-error-container": "#93000a",
+              "tertiary-container": "#b55d00",
+              "secondary-container": "#bdbefe",
+              "surface-container-low": "#f3f4f5",
+              "tertiary-fixed-dim": "#ffb783",
+              "on-secondary-container": "#494b83",
+              "error-container": "#ffdad6",
+              "primary-container": "#6063ee",
+              "surface-tint": "#494bd6",
+              "primary": "#4648d4",
+              "surface-container-highest": "#e1e3e4"
+            }
+          }
+        }
+      };
+    </script>
     <style>
-      body { font-family: sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; }
-      code { background: #f3f3f3; padding: 0.2rem 0.3rem; }
+      body { font-family: "Inter", sans-serif; }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .hide-scrollbar::-webkit-scrollbar { display: none; }
+      .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
   </head>
-  <body>
-    <h1>ATSFlow Engine</h1>
-    <p>Backend is running. Use <code>/api/v1/analyze-text</code> or <code>/api/v1/analyze-pdf</code>.</p>
+  <body class="bg-surface text-on-surface selection:bg-primary-fixed-dim selection:text-on-primary-fixed">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md shadow-sm shadow-indigo-500/5 flex justify-between items-center px-6 py-3 h-16">
+      <div class="flex items-center gap-8">
+        <div class="text-xl font-bold tracking-tighter">AI Career Suite</div>
+        <div class="hidden md:flex items-center gap-6 text-sm font-semibold tracking-tight">
+          <button data-nav="analyze" class="text-indigo-600 border-b-2 border-indigo-600">ATSFlow Engine</button>
+          <a href="http://localhost:3002" class="text-slate-500 hover:text-indigo-500 transition-colors">RAGFlow Engine</a>
+          <button data-nav="history" class="text-slate-500 hover:text-indigo-500 transition-colors">History</button>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 text-slate-500">
+        <span class="material-symbols-outlined">analytics</span>
+      </div>
+    </nav>
+
+    <div class="flex pt-16 min-h-screen">
+      <aside class="hidden lg:flex flex-col h-[calc(100vh-64px)] w-64 p-4 space-y-2 bg-slate-50 sticky top-16">
+        <div class="flex items-center gap-3 mb-8 px-2">
+          <div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-white">
+            <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">analytics</span>
+          </div>
+          <div>
+            <p class="text-lg font-bold leading-none">ATSFlow</p>
+            <p class="text-[10px] text-on-surface-variant uppercase tracking-widest mt-1">Intelligent Workspace</p>
+          </div>
+        </div>
+        <nav class="space-y-1">
+          <button data-nav="analyze" class="w-full text-left flex items-center px-3 py-2.5 bg-white text-indigo-600 rounded-lg shadow-sm font-medium">
+            <span class="material-symbols-outlined mr-3" style="font-variation-settings: 'FILL' 1">analytics</span>Analyze
+          </button>
+          <button data-nav="result" class="w-full text-left flex items-center px-3 py-2.5 text-slate-600 hover:bg-slate-100 rounded-lg font-medium transition-all">
+            <span class="material-symbols-outlined mr-3">auto_awesome</span>Result
+          </button>
+          <button data-nav="history" class="w-full text-left flex items-center px-3 py-2.5 text-slate-600 hover:bg-slate-100 rounded-lg font-medium transition-all">
+            <span class="material-symbols-outlined mr-3">history</span>History
+          </button>
+        </nav>
+        <button id="new-analysis" class="mt-6 w-full bg-gradient-to-br from-primary to-primary-container text-white py-3 rounded-xl font-semibold shadow-md">New Analysis</button>
+      </aside>
+
+      <main class="flex-1 bg-surface-container-low min-h-[calc(100vh-64px)] p-6 lg:p-10 overflow-y-auto hide-scrollbar">
+        <div id="app" class="max-w-6xl mx-auto"></div>
+      </main>
+    </div>
+
+    <script src="/app.js"></script>
   </body>
- </html>
+</html>
