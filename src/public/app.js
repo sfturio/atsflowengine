@@ -19,7 +19,6 @@
     subtitle:
       'Score ATS deterministico com assistencia opcional de IA. Sem promessas exageradas, apenas melhorias praticas.',
     uploadTitle: 'Enviar curriculo em PDF (opcional)',
-    uploadHint: 'Se voce enviar PDF, nao precisa preencher "Texto do curriculo".',
     uploadNoFile: 'Nenhum arquivo selecionado ainda.',
     uploadSelectedPrefix: 'PDF selecionado:',
     resumeText: 'Texto do curriculo',
@@ -186,7 +185,6 @@
                 <span class="material-symbols-outlined text-3xl">upload_file</span>
               </div>
               <h3 class="text-lg font-semibold">${t('uploadTitle')}</h3>
-              <p class="text-sm text-on-surface-variant mt-1">${t('uploadHint')}</p>
               <p id="resume-upload-status" class="text-xs font-semibold text-on-surface-variant mt-3">${t('uploadNoFile')}</p>
             </label>
 
