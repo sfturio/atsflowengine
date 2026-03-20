@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: atsflow-engine
+    runtime: node
+    plan: free
+    autoDeploy: true
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: LLM_PROVIDER
+        value: groq
+      - key: GROQ_MODEL
+        value: llama-3.1-8b-instant
+      - key: OLLAMA_BASE_URL
+        value: http://localhost:11434
+      - key: OLLAMA_MODEL
+        value: llama3.1:8b
+      - key: LLM_TIMEOUT_MS
+        value: 30000
+      - key: DATABASE_URL
+        sync: false
