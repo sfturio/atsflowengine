@@ -54,19 +54,20 @@
     tableAction: 'Acao',
     noAnalyses: 'Nenhuma analise ainda.',
     aboutTitle: 'Sobre o ATSFlow Engine',
-    aboutSubtitle: 'Resumo rapido de como o app funciona para te ajudar a melhorar curriculos com foco ATS.',
+    aboutSubtitle:
+      'Entenda como o ATSFlow ajuda voce a otimizar seu curriculo para processos seletivos modernos e aumentar suas chances de entrevista.',
     aboutWhatIsTitle: 'O que este app faz',
     aboutWhatIsBody:
-      'O ATSFlow analisa seu curriculo com heuristicas claras: estrutura, legibilidade, forca de conteudo e aderencia de palavras-chave. A IA entra como camada complementar para deixar o feedback mais natural, sem depender 100% de modelo.',
+      'O ATSFlow analisa seu curriculo com foco em compatibilidade com sistemas de recrutamento (ATS), avaliando estrutura, clareza do conteudo e aderencia as competencias exigidas na vaga. O resultado e um diagnostico pratico com sugestoes objetivas para melhorar sua performance em processos seletivos.',
     aboutHowTitle: 'Como a analise e calculada',
     aboutHowBody:
-      'O score final combina pesos fixos e explicaveis: palavras-chave (40%), estrutura (25%), legibilidade (20%) e forca de conteudo (15%). Isso deixa o resultado consistente e facil de justificar.',
+      'A pontuacao combina diferentes fatores relevantes para recrutadores e sistemas automatizados, como correspondencia de palavras-chave, organizacao das secoes, legibilidade e impacto das descricoes profissionais. Isso gera um score transparente e facil de interpretar.',
     aboutLimitsTitle: 'Limites importantes',
     aboutLimitsBody:
-      'Nao existe precisao perfeita em avaliacao de curriculo. O ATSFlow e uma ferramenta de apoio para priorizar ajustes praticos antes de candidaturas reais.',
+      'O ATSFlow nao substitui avaliacao humana nem garante aprovacao em vagas. A ferramenta existe para apoiar decisoes mais estrategicas, ajudando candidatos a priorizar melhorias com base em criterios reais do mercado.',
     aboutTechTitle: 'Base tecnica',
     aboutTechBody:
-      'Backend em Node.js + Express, persistencia em SQLite/Postgres, parser de PDF e fallback de LLM (Groq -> Ollama -> fluxo deterministico). Se a IA falhar, o app continua funcionando.'
+      'Construido com arquitetura moderna em Node.js e processamento inteligente de documentos, o ATSFlow integra heuristicas deterministicas e analise assistida por IA para entregar feedback consistente, rapido e resiliente.'
   };
 
   const t = (key) => UI_TEXT[key] || key;
