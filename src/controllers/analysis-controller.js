@@ -3,21 +3,14 @@ const { getAnalyses, getAnalysisById, runAnalysis } = require("../services/analy
 
 function validateAnalyzeInput(body) {
   const resumeText = (body.resume_text || "").trim();
-  const jobDescription = (body.job_description || "").trim();
-  const targetRole = (body.target_role || "").trim();
 
   if (resumeText.length < 30) {
     return { error: "resume_text must have at least 30 characters" };
   }
-  if (jobDescription.length < 30) {
-    return { error: "job_description must have at least 30 characters" };
-  }
 
   return {
     data: {
-      resumeText,
-      jobDescription,
-      targetRole: targetRole || null
+      resumeText
     }
   };
 }
@@ -41,11 +34,7 @@ async function analyzePdf(req, res, next) {
     }
 
     const resumeText = await extractTextFromPdf(req.file.buffer);
-    const payload = {
-      resume_text: resumeText,
-      job_description: req.body.job_description,
-      target_role: req.body.target_role
-    };
+    const payload = { resume_text: resumeText };
     const { error, data } = validateAnalyzeInput(payload);
     if (error) return res.status(400).json({ error });
 

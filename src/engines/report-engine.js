@@ -1,30 +1,62 @@
 function buildMarkdownReport(result) {
+  const language = result?.metadata?.language === "pt" ? "pt" : "en";
+  const labels =
+    language === "pt"
+      ? {
+          title: "# Relatorio ATSFlow",
+          ats: "ATS Score",
+          keyword: "Keyword Match Score",
+          structure: "Structure Score",
+          readability: "Readability Score",
+          content: "Content Strength Score",
+          found: "## Palavras-chave encontradas",
+          missing: "## Palavras-chave ausentes",
+          issues: "## Problemas detectados",
+          suggestions: "## Sugestoes de melhoria",
+          summary: "## Resumo final",
+          none: "- Nenhum"
+        }
+      : {
+          title: "# ATSFlow Analysis Report",
+          ats: "ATS Score",
+          keyword: "Keyword Match Score",
+          structure: "Structure Score",
+          readability: "Readability Score",
+          content: "Content Strength Score",
+          found: "## Keywords Found",
+          missing: "## Keywords Missing",
+          issues: "## Detected Issues",
+          suggestions: "## Improvement Suggestions",
+          summary: "## Final Summary",
+          none: "- None"
+        };
+
   const lines = [
-    "# ATSFlow Analysis Report",
+    labels.title,
     "",
-    `- ATS Score: **${result.atsScore}/100**`,
-    `- Keyword Match Score: **${result.keywordMatchScore}/100**`,
-    `- Structure Score: **${result.structureScore}/100**`,
-    `- Readability Score: **${result.readabilityScore}/100**`,
-    `- Content Strength Score: **${result.contentStrengthScore}/100**`,
+    `- ${labels.ats}: **${result.atsScore}/100**`,
+    `- ${labels.keyword}: **${result.keywordMatchScore}/100**`,
+    `- ${labels.structure}: **${result.structureScore}/100**`,
+    `- ${labels.readability}: **${result.readabilityScore}/100**`,
+    `- ${labels.content}: **${result.contentStrengthScore}/100**`,
     "",
-    "## Keywords Found",
-    ...(result.keywordsFound.length ? result.keywordsFound.map((item) => `- ${item}`) : ["- None"]),
+    labels.found,
+    ...(result.keywordsFound.length ? result.keywordsFound.map((item) => `- ${item}`) : [labels.none]),
     "",
-    "## Keywords Missing",
+    labels.missing,
     ...(result.keywordsMissing.length
       ? result.keywordsMissing.map((item) => `- ${item}`)
-      : ["- None"]),
+      : [labels.none]),
     "",
-    "## Detected Issues",
-    ...(result.detectedIssues.length ? result.detectedIssues.map((item) => `- ${item}`) : ["- None"]),
+    labels.issues,
+    ...(result.detectedIssues.length ? result.detectedIssues.map((item) => `- ${item}`) : [labels.none]),
     "",
-    "## Improvement Suggestions",
+    labels.suggestions,
     ...(result.improvementSuggestions.length
       ? result.improvementSuggestions.map((item) => `- ${item}`)
-      : ["- None"]),
+      : [labels.none]),
     "",
-    "## Final Summary",
+    labels.summary,
     result.shortFinalSummary
   ];
   return lines.join("\n");

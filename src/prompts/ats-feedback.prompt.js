@@ -5,10 +5,24 @@ Keep guidance practical, concise, and realistic.
 Return plain text.
 `;
 
-function buildAtsFeedbackPrompt({ targetRole, suggestions, summary }) {
-  return `
-Target role: ${targetRole || "Not provided"}
+function buildAtsFeedbackPrompt({ language = "en", suggestions, summary }) {
+  if (language === "pt") {
+    return `
+Resumo deterministico atual:
+${summary}
 
+Sugestoes deterministicas atuais:
+${suggestions.map((item) => `- ${item}`).join("\n")}
+
+Reescreva isso em portugues com:
+1) um resumo final curto (2-3 frases),
+2) 5 sugestoes objetivas em bullet points.
+
+Sem promessas exageradas.
+`;
+  }
+
+  return `
 Current deterministic summary:
 ${summary}
 

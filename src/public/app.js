@@ -56,8 +56,6 @@
     render();
 
     const resumeText = form.querySelector('[name="resume_text"]').value.trim();
-    const jobDescription = form.querySelector('[name="job_description"]').value.trim();
-    const targetRole = form.querySelector('[name="target_role"]').value.trim();
     const fileInput = form.querySelector('[name="resume_pdf"]');
     const file = fileInput.files[0];
 
@@ -66,17 +64,13 @@
       if (file) {
         const payload = new FormData();
         payload.append('resume_pdf', file);
-        payload.append('job_description', jobDescription);
-        payload.append('target_role', targetRole);
         response = await fetch('/api/v1/analyze-pdf', { method: 'POST', body: payload });
       } else {
         response = await fetch('/api/v1/analyze-text', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            resume_text: resumeText,
-            job_description: jobDescription,
-            target_role: targetRole
+            resume_text: resumeText
           })
         });
       }
@@ -117,26 +111,21 @@
                 <span class="material-symbols-outlined text-3xl">upload_file</span>
               </div>
               <h3 class="text-lg font-semibold">Upload Resume PDF (optional)</h3>
-              <p class="text-sm text-on-surface-variant mt-1">If omitted, text input below will be used</p>
+              <p class="text-sm text-on-surface-variant mt-1">PT: Se voce enviar PDF, nao precisa preencher \"Resume Text\". EN: If you upload a PDF, you do not need to fill \"Resume Text\".</p>
             </label>
 
             <div class="space-y-3">
-              <label class="block text-[0.75rem] font-semibold text-on-surface-variant tracking-wider uppercase">Target Role</label>
-              <input name="target_role" class="w-full h-14 px-6 bg-surface-container-lowest rounded-lg border-none focus:ring-2 focus:ring-primary/20" placeholder="e.g. Senior Software Engineer" />
-            </div>
-
-            <div class="space-y-3">
               <label class="block text-[0.75rem] font-semibold text-on-surface-variant tracking-wider uppercase">Resume Text</label>
-              <textarea name="resume_text" class="w-full h-56 p-6 bg-surface-container-lowest rounded-lg border-none focus:ring-2 focus:ring-primary/20 resize-none" placeholder="Paste your resume content here..."></textarea>
+              <textarea name="resume_text" class="w-full h-56 p-6 bg-surface-container-lowest rounded-lg border-none focus:ring-2 focus:ring-primary/20 resize-none" placeholder="PT: Cole o curriculo aqui somente se voce NAO enviou PDF. EN: Paste resume text here only if you DID NOT upload a PDF."></textarea>
             </div>
           </div>
 
           <div class="md:col-span-5 space-y-3 h-full flex flex-col">
-            <label class="block text-[0.75rem] font-semibold text-on-surface-variant tracking-wider uppercase">Job Description</label>
-            <textarea name="job_description" class="flex-1 w-full min-h-[360px] p-6 bg-surface-container-lowest rounded-lg border-none focus:ring-2 focus:ring-primary/20 resize-none" placeholder="Paste the job description..."></textarea>
-            <div class="mt-3 p-5 bg-tertiary-container/10 rounded-xl border-l-4 border-tertiary-container">
-              <p class="text-sm font-semibold text-tertiary">Pro tip</p>
-              <p class="text-xs text-on-tertiary-fixed-variant mt-1">Detailed job descriptions improve keyword matching and structure guidance.</p>
+            <div class="mt-3 p-5 bg-tertiary-container/10 rounded-xl border-l-4 border-tertiary-container min-h-[220px]">
+              <p class="text-sm font-semibold text-tertiary">ATS-only mode</p>
+              <p class="text-xs text-on-tertiary-fixed-variant mt-2">PT: O ATSFlow analisa estrutura, legibilidade, forca de conteudo e palavras-chave ATS do proprio curriculo.</p>
+              <p class="text-xs text-on-tertiary-fixed-variant mt-2">EN: ATSFlow analyzes structure, readability, content strength, and ATS keyword baseline from the resume itself.</p>
+              <p class="text-xs text-on-tertiary-fixed-variant mt-2">Para job description e target role, use o RAGFlow Engine.</p>
             </div>
           </div>
 

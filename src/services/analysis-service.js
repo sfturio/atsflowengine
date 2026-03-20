@@ -18,14 +18,16 @@ function applyLlmAssist(baseResult, llmText) {
     .map((line) => line.trim())
     .filter(Boolean)
     .filter((line) => !/^#{1,6}\s/.test(line))
-    .filter((line) => !/^(\*\*)?final summary[:\s]*(\*\*)?$/i.test(line));
+    .filter((line) => !/^(\*\*)?(final summary|resumo final)[:\s]*(\*\*)?$/i.test(line));
   if (!lines.length) return baseResult;
 
   const firstSentenceCandidate = lines.find(
     (line) =>
       !line.startsWith("-") &&
       line.length > 20 &&
-      !/rewritten version|current assessment|summary[:]?$/i.test(line)
+      !/rewritten version|current assessment|summary[:]?$|versao reescrita|avaliacao atual|resumo[:]?$/i.test(
+        line
+      )
   );
   const firstSentence = firstSentenceCandidate || baseResult.shortFinalSummary;
   const bulletSuggestions = lines
@@ -42,14 +44,14 @@ function applyLlmAssist(baseResult, llmText) {
   };
 }
 
-async function runAnalysis({ resumeText, jobDescription, targetRole, sourceType }) {
-  const deterministic = analyzeResume({ resumeText, jobDescription, targetRole });
+async function runAnalysis({ resumeText, sourceType }) {
+  const deterministic = analyzeResume({ resumeText });
   let finalResult = deterministic;
 
   const llmResponse = await generateText({
     systemPrompt: ATS_FEEDBACK_SYSTEM_PROMPT,
     userPrompt: buildAtsFeedbackPrompt({
-      targetRole,
+      language: deterministic?.metadata?.language || "en",
       suggestions: deterministic.improvementSuggestions,
       summary: deterministic.shortFinalSummary
     }),
@@ -64,7 +66,7 @@ async function runAnalysis({ resumeText, jobDescription, targetRole, sourceType 
     model: llmResponse.model
   };
 
-  const analysisId = await saveAnalysis(finalResult, sourceType, targetRole || null);
+  const analysisId = await saveAnalysis(finalResult, sourceType, null);
   return getAnalysisById(analysisId);
 }
 
