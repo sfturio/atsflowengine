@@ -17,6 +17,7 @@
     navAnalyze: 'Analisar',
     navResult: 'Resultado',
     navHistory: 'Historico',
+    navAbout: 'Sobre',
     newAnalysis: 'Nova Analise',
     title: 'Veja se seu curriculo e compativel com ATS',
     subtitle:
@@ -51,7 +52,21 @@
     tableSource: 'Fonte',
     tableDate: 'Data',
     tableAction: 'Acao',
-    noAnalyses: 'Nenhuma analise ainda.'
+    noAnalyses: 'Nenhuma analise ainda.',
+    aboutTitle: 'Sobre o ATSFlow Engine',
+    aboutSubtitle: 'Resumo rapido de como o app funciona para te ajudar a melhorar curriculos com foco ATS.',
+    aboutWhatIsTitle: 'O que este app faz',
+    aboutWhatIsBody:
+      'O ATSFlow analisa seu curriculo com heuristicas claras: estrutura, legibilidade, forca de conteudo e aderencia de palavras-chave. A IA entra como camada complementar para deixar o feedback mais natural, sem depender 100% de modelo.',
+    aboutHowTitle: 'Como a analise e calculada',
+    aboutHowBody:
+      'O score final combina pesos fixos e explicaveis: palavras-chave (40%), estrutura (25%), legibilidade (20%) e forca de conteudo (15%). Isso deixa o resultado consistente e facil de justificar.',
+    aboutLimitsTitle: 'Limites importantes',
+    aboutLimitsBody:
+      'Nao existe precisao perfeita em avaliacao de curriculo. O ATSFlow e uma ferramenta de apoio para priorizar ajustes praticos antes de candidaturas reais.',
+    aboutTechTitle: 'Base tecnica',
+    aboutTechBody:
+      'Backend em Node.js + Express, persistencia em SQLite/Postgres, parser de PDF e fallback de LLM (Groq -> Ollama -> fluxo deterministico). Se a IA falhar, o app continua funcionando.'
   };
 
   const t = (key) => UI_TEXT[key] || key;
@@ -59,10 +74,10 @@
   function SidebarSupportSection() {
     return `
       <div class="space-y-1.5">
-        <button id="open-help" class="w-full text-left px-2 py-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors text-sm font-medium flex items-center gap-2">
+        <button id="open-help" class="w-full text-left px-2 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors text-sm font-medium flex items-center gap-2">
           <span class="material-symbols-outlined text-[18px]">help</span><span>Ajuda</span>
         </button>
-        <button id="open-feedback" class="w-full text-left px-2 py-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors text-sm font-medium flex items-center gap-2">
+        <button id="open-feedback" class="w-full text-left px-2 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors text-sm font-medium flex items-center gap-2">
           <span class="material-symbols-outlined text-[18px]">chat</span><span>Feedback</span>
         </button>
       </div>
@@ -146,6 +161,7 @@
       'side-nav-analyze': t('navAnalyze'),
       'side-nav-result': t('navResult'),
       'side-nav-history': t('navHistory'),
+      'side-nav-about': t('navAbout'),
       'new-analysis': t('newAnalysis')
     };
 
@@ -460,6 +476,36 @@
     `;
   }
 
+  function aboutPage() {
+    return `
+      <div class="space-y-8">
+        <header class="space-y-3">
+          <h2 class="text-4xl font-bold tracking-tight">${t('aboutTitle')}</h2>
+          <p class="text-on-surface-variant text-lg max-w-3xl">${t('aboutSubtitle')}</p>
+        </header>
+
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <article class="bg-surface-container-lowest rounded-xl p-6 shadow-sm space-y-3">
+            <h3 class="text-xl font-bold">${t('aboutWhatIsTitle')}</h3>
+            <p class="text-on-surface-variant leading-relaxed">${t('aboutWhatIsBody')}</p>
+          </article>
+          <article class="bg-surface-container-lowest rounded-xl p-6 shadow-sm space-y-3">
+            <h3 class="text-xl font-bold">${t('aboutHowTitle')}</h3>
+            <p class="text-on-surface-variant leading-relaxed">${t('aboutHowBody')}</p>
+          </article>
+          <article class="bg-surface-container-lowest rounded-xl p-6 shadow-sm space-y-3">
+            <h3 class="text-xl font-bold">${t('aboutLimitsTitle')}</h3>
+            <p class="text-on-surface-variant leading-relaxed">${t('aboutLimitsBody')}</p>
+          </article>
+          <article class="bg-surface-container-lowest rounded-xl p-6 shadow-sm space-y-3">
+            <h3 class="text-xl font-bold">${t('aboutTechTitle')}</h3>
+            <p class="text-on-surface-variant leading-relaxed">${t('aboutTechBody')}</p>
+          </article>
+        </section>
+      </div>
+    `;
+  }
+
   function bindActions() {
     document.querySelectorAll('[data-nav]').forEach((node) => {
       node.addEventListener('click', () => {
@@ -576,6 +622,7 @@
     if (state.page === 'analyze') app.innerHTML = analyzePage();
     if (state.page === 'result') app.innerHTML = resultPage();
     if (state.page === 'history') app.innerHTML = historyPage();
+    if (state.page === 'about') app.innerHTML = aboutPage();
     syncTopNavText();
     renderSupportUi();
     bindActions();
