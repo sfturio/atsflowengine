@@ -1,12 +1,120 @@
-(function () {
+﻿(function () {
   const app = document.getElementById('app');
   const state = {
     page: 'analyze',
     result: null,
     history: [],
     loading: false,
-    error: ''
+    error: '',
+    lang: localStorage.getItem('ats_ui_lang') || 'en'
   };
+
+  const I18N = {
+    en: {
+      navOther: 'Check our other app:',
+      navOtherLink: 'RAGFlow Engine',
+      navAnalyze: 'Analyze',
+      navResult: 'Result',
+      navHistory: 'History',
+      newAnalysis: 'New Analysis',
+      title: 'Check if your resume is ATS-friendly',
+      subtitle:
+        'Deterministic ATS scoring with optional AI assistance. No overpromises, only practical improvements.',
+      uploadTitle: 'Upload Resume PDF (optional)',
+      uploadHint: 'If you upload a PDF, you do not need to fill "Resume Text".',
+      resumeText: 'Resume Text',
+      resumePlaceholder:
+        'Paste resume text here only if you DID NOT upload a PDF.',
+      analyzeBtn: 'Analyze Resume',
+      analyzing: 'Analyzing...',
+      noResult: 'No result yet',
+      runFirst: 'Run an analysis first.',
+      goAnalyze: 'Go to Analyze',
+      atsScore: 'ATS Score',
+      provider: 'Provider',
+      downloadReport: 'Download Markdown Report',
+      finalSummary: 'Final Summary',
+      keywordMatch: 'Keyword Match',
+      structure: 'Structure',
+      readability: 'Readability',
+      contentStrength: 'Content Strength',
+      keywordsFound: 'Keywords Found',
+      keywordsMissing: 'Keywords Missing',
+      detectedIssues: 'Detected Issues',
+      suggestions: 'Actionable Suggestions',
+      none: 'None',
+      historyTitle: 'Analysis History',
+      historySub: 'Open any saved ATS analysis report.',
+      tableRole: 'Analysis ID',
+      tableSource: 'Source',
+      tableDate: 'Date',
+      tableAction: 'Action',
+      noAnalyses: 'No analyses yet.'
+    },
+    pt: {
+      navOther: 'Confira nosso outro app:',
+      navOtherLink: 'RAGFlow Engine',
+      navAnalyze: 'Analisar',
+      navResult: 'Resultado',
+      navHistory: 'Historico',
+      newAnalysis: 'Nova Analise',
+      title: 'Veja se seu curriculo e ATS-friendly',
+      subtitle:
+        'Score ATS deterministico com assistencia opcional de IA. Sem promessas exageradas, apenas melhorias praticas.',
+      uploadTitle: 'Enviar curriculo em PDF (opcional)',
+      uploadHint: 'Se voce enviar PDF, nao precisa preencher "Resume Text".',
+      resumeText: 'Texto do curriculo',
+      resumePlaceholder:
+        'Cole o texto do curriculo apenas se voce NAO enviou PDF.',
+      analyzeBtn: 'Analisar curriculo',
+      analyzing: 'Analisando...',
+      noResult: 'Sem resultado ainda',
+      runFirst: 'Rode uma analise primeiro.',
+      goAnalyze: 'Ir para Analise',
+      atsScore: 'Score ATS',
+      provider: 'Provider',
+      downloadReport: 'Baixar relatorio em Markdown',
+      finalSummary: 'Resumo final',
+      keywordMatch: 'Match de keywords',
+      structure: 'Estrutura',
+      readability: 'Legibilidade',
+      contentStrength: 'Forca de conteudo',
+      keywordsFound: 'Palavras-chave encontradas',
+      keywordsMissing: 'Palavras-chave ausentes',
+      detectedIssues: 'Problemas detectados',
+      suggestions: 'Sugestoes praticas',
+      none: 'Nenhum',
+      historyTitle: 'Historico de analises',
+      historySub: 'Abra qualquer analise ATS salva.',
+      tableRole: 'ID da analise',
+      tableSource: 'Fonte',
+      tableDate: 'Data',
+      tableAction: 'Acao',
+      noAnalyses: 'Nenhuma analise ainda.'
+    }
+  };
+
+  const t = (key) => I18N[state.lang][key] || I18N.en[key] || key;
+
+  function syncTopNavText() {
+    const map = {
+      'nav-other-text': t('navOther'),
+      'nav-other-link': t('navOtherLink'),
+      'side-nav-analyze': t('navAnalyze'),
+      'side-nav-result': t('navResult'),
+      'side-nav-history': t('navHistory'),
+      'new-analysis': t('newAnalysis')
+    };
+
+    Object.entries(map).forEach(([id, text]) => {
+      const node = document.getElementById(id);
+      if (node) node.textContent = text;
+    });
+
+    const btn = document.getElementById('translate-btn');
+    if (btn) btn.textContent = state.lang === 'pt' ? 'EN' : 'PT';
+    document.documentElement.lang = state.lang === 'pt' ? 'pt-BR' : 'en';
+  }
 
   function scoreColor(score) {
     if (score >= 80) return 'text-primary';
@@ -22,6 +130,12 @@
 
   function setPage(page) {
     state.page = page;
+    render();
+  }
+
+  function toggleLang() {
+    state.lang = state.lang === 'pt' ? 'en' : 'pt';
+    localStorage.setItem('ats_ui_lang', state.lang);
     render();
   }
 
@@ -69,9 +183,7 @@
         response = await fetch('/api/v1/analyze-text', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            resume_text: resumeText
-          })
+          body: JSON.stringify({ resume_text: resumeText })
         });
       }
 
@@ -93,12 +205,8 @@
     return `
       <div class="space-y-10">
         <header class="text-center space-y-4">
-          <h1 class="text-[2.75rem] font-bold tracking-tight leading-tight">
-            Check if your resume is <span class="text-primary italic">ATS-friendly</span>
-          </h1>
-          <p class="text-on-surface-variant text-lg max-w-2xl mx-auto">
-            Deterministic ATS scoring with optional AI assistance. No overpromises, only practical improvements.
-          </p>
+          <h1 class="text-[2.75rem] font-bold tracking-tight leading-tight">${t('title')}</h1>
+          <p class="text-on-surface-variant text-lg max-w-2xl mx-auto">${t('subtitle')}</p>
         </header>
 
         ${state.error ? `<div class="bg-error-container text-on-error-container rounded-xl p-4 font-medium">${state.error}</div>` : ''}
@@ -110,28 +218,21 @@
               <div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center text-primary mb-4">
                 <span class="material-symbols-outlined text-3xl">upload_file</span>
               </div>
-              <h3 class="text-lg font-semibold">Upload Resume PDF (optional)</h3>
-              <p class="text-sm text-on-surface-variant mt-1">PT: Se voce enviar PDF, nao precisa preencher \"Resume Text\". EN: If you upload a PDF, you do not need to fill \"Resume Text\".</p>
+              <h3 class="text-lg font-semibold">${t('uploadTitle')}</h3>
+              <p class="text-sm text-on-surface-variant mt-1">${t('uploadHint')}</p>
             </label>
 
             <div class="space-y-3">
-              <label class="block text-[0.75rem] font-semibold text-on-surface-variant tracking-wider uppercase">Resume Text</label>
-              <textarea name="resume_text" class="w-full h-56 p-6 bg-surface-container-lowest rounded-lg border-none focus:ring-2 focus:ring-primary/20 resize-none" placeholder="PT: Cole o curriculo aqui somente se voce NAO enviou PDF. EN: Paste resume text here only if you DID NOT upload a PDF."></textarea>
+              <label class="block text-[0.75rem] font-semibold text-on-surface-variant tracking-wider uppercase">${t('resumeText')}</label>
+              <textarea name="resume_text" class="w-full h-56 p-6 bg-surface-container-lowest rounded-lg border-none focus:ring-2 focus:ring-primary/20 resize-none" placeholder="${t('resumePlaceholder')}"></textarea>
             </div>
           </div>
 
-          <div class="md:col-span-5 space-y-3 h-full flex flex-col">
-            <div class="mt-3 p-5 bg-tertiary-container/10 rounded-xl border-l-4 border-tertiary-container min-h-[220px]">
-              <p class="text-sm font-semibold text-tertiary">ATS-only mode</p>
-              <p class="text-xs text-on-tertiary-fixed-variant mt-2">PT: O ATSFlow analisa estrutura, legibilidade, forca de conteudo e palavras-chave ATS do proprio curriculo.</p>
-              <p class="text-xs text-on-tertiary-fixed-variant mt-2">EN: ATSFlow analyzes structure, readability, content strength, and ATS keyword baseline from the resume itself.</p>
-              <p class="text-xs text-on-tertiary-fixed-variant mt-2">Para job description e target role, use o RAGFlow Engine.</p>
-            </div>
-          </div>
+          <div class="md:col-span-5"></div>
 
           <div class="md:col-span-12 flex flex-col items-center pt-2">
             <button ${state.loading ? 'disabled' : ''} class="px-12 py-5 rounded-xl text-lg font-bold text-white bg-gradient-to-br from-primary to-primary-container shadow-xl shadow-primary/20 disabled:opacity-50">
-              ${state.loading ? 'Analyzing...' : 'Analyze Resume'}
+              ${state.loading ? t('analyzing') : t('analyzeBtn')}
             </button>
           </div>
         </form>
@@ -143,9 +244,9 @@
     if (!state.result) {
       return `
         <div class="bg-surface-container-lowest rounded-xl p-10 text-center">
-          <h2 class="text-2xl font-bold mb-2">No result yet</h2>
-          <p class="text-on-surface-variant mb-6">Run an analysis first.</p>
-          <button id="go-analyze" class="px-6 py-3 bg-primary text-white rounded-lg font-semibold">Go to Analyze</button>
+          <h2 class="text-2xl font-bold mb-2">${t('noResult')}</h2>
+          <p class="text-on-surface-variant mb-6">${t('runFirst')}</p>
+          <button id="go-analyze" class="px-6 py-3 bg-primary text-white rounded-lg font-semibold">${t('goAnalyze')}</button>
         </div>
       `;
     }
@@ -168,32 +269,32 @@
               </div>
             </div>
             <div>
-              <h3 class="text-xl font-bold">ATS Score</h3>
-              <p class="text-sm text-on-surface-variant mt-1">Provider: ${(r.llm && r.llm.provider) || 'none'}</p>
+              <h3 class="text-xl font-bold">${t('atsScore')}</h3>
+              <p class="text-sm text-on-surface-variant mt-1">${t('provider')}: ${(r.llm && r.llm.provider) || 'none'}</p>
             </div>
-            <a href="/api/v1/analyses/${r.analysisId}/report" target="_blank" class="w-full py-3 bg-gradient-to-r from-primary to-primary-container text-white font-bold rounded-lg shadow-lg text-center">Download Markdown Report</a>
+            <a href="/api/v1/analyses/${r.analysisId}/report" target="_blank" class="w-full py-3 bg-gradient-to-r from-primary to-primary-container text-white font-bold rounded-lg shadow-lg text-center">${t('downloadReport')}</a>
           </div>
 
           <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div class="sm:col-span-2 bg-gradient-to-br from-indigo-50 to-white p-6 rounded-xl border border-primary/10">
-              <h4 class="font-bold text-on-surface mb-2">Final Summary</h4>
-              <p class="text-on-surface-variant text-sm leading-relaxed">${r.shortFinalSummary || 'No summary provided.'}</p>
+              <h4 class="font-bold text-on-surface mb-2">${t('finalSummary')}</h4>
+              <p class="text-on-surface-variant text-sm leading-relaxed">${r.shortFinalSummary || t('none')}</p>
             </div>
-            ${scoreRow('Keyword Match', r.keywordMatchScore || 0)}
-            ${scoreRow('Structure', r.structureScore || 0)}
-            ${scoreRow('Readability', r.readabilityScore || 0)}
-            ${scoreRow('Content Strength', r.contentStrengthScore || 0)}
+            ${scoreRow(t('keywordMatch'), r.keywordMatchScore || 0)}
+            ${scoreRow(t('structure'), r.structureScore || 0)}
+            ${scoreRow(t('readability'), r.readabilityScore || 0)}
+            ${scoreRow(t('contentStrength'), r.contentStrengthScore || 0)}
           </div>
         </section>
 
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div class="space-y-6">
-            ${chipCard('Keywords Found', r.keywordsFound || [], 'primary')}
-            ${chipCard('Keywords Missing', r.keywordsMissing || [], 'tertiary')}
+            ${chipCard(t('keywordsFound'), r.keywordsFound || [], 'primary')}
+            ${chipCard(t('keywordsMissing'), r.keywordsMissing || [], 'tertiary')}
           </div>
           <div class="space-y-6">
-            ${listCard('Detected Issues', r.detectedIssues || [], 'report', 'error')}
-            ${orderedCard('Actionable Suggestions', r.improvementSuggestions || [])}
+            ${listCard(t('detectedIssues'), r.detectedIssues || [], 'report', 'error')}
+            ${orderedCard(t('suggestions'), r.improvementSuggestions || [])}
           </div>
         </section>
       </div>
@@ -223,7 +324,7 @@
       <div class="bg-surface-container-low/50 p-6 rounded-xl border-l-4 ${tone === 'primary' ? 'border-primary' : 'border-tertiary-container'}">
         <h4 class="text-base font-bold mb-4">${title}</h4>
         <div class="flex flex-wrap gap-2">
-          ${items.length ? items.map((i) => `<span class="px-3 py-1 ${cls} text-xs font-semibold rounded-full border">${i}</span>`).join('') : '<span class="text-on-surface-variant text-sm">None</span>'}
+          ${items.length ? items.map((i) => `<span class="px-3 py-1 ${cls} text-xs font-semibold rounded-full border">${i}</span>`).join('') : `<span class="text-on-surface-variant text-sm">${t('none')}</span>`}
         </div>
       </div>
     `;
@@ -238,7 +339,7 @@
             <li class="flex gap-3 items-start">
               <span class="material-symbols-outlined text-sm ${tone === 'error' ? 'text-error' : 'text-primary'}">${icon}</span>
               <p class="text-sm text-on-surface-variant">${item}</p>
-            </li>`).join('') : '<li class="text-sm text-on-surface-variant">None</li>'}
+            </li>`).join('') : `<li class="text-sm text-on-surface-variant">${t('none')}</li>`}
         </ul>
       </div>
     `;
@@ -253,7 +354,7 @@
             <li class="flex gap-3 items-start">
               <span class="w-6 h-6 rounded-full bg-slate-100 text-primary text-xs font-bold flex items-center justify-center">${idx + 1}</span>
               <p class="text-sm text-on-surface-variant">${item}</p>
-            </li>`).join('') : '<li class="text-sm text-on-surface-variant">None</li>'}
+            </li>`).join('') : `<li class="text-sm text-on-surface-variant">${t('none')}</li>`}
         </ol>
       </div>
     `;
@@ -270,7 +371,7 @@
                 <span class="material-symbols-outlined">analytics</span>
               </div>
               <div>
-                <p class="font-bold tracking-tight">${item.targetRole || 'Untitled Analysis'}</p>
+                <p class="font-bold tracking-tight">${item.targetRole || t('tableRole')}</p>
                 <p class="text-xs text-on-surface-variant">${item.analysisId}</p>
               </div>
             </div>
@@ -287,8 +388,8 @@
     return `
       <div class="space-y-8">
         <div>
-          <h2 class="text-4xl font-bold tracking-tight mb-2">Analysis History</h2>
-          <p class="text-on-surface-variant text-lg">Open any saved ATS analysis report.</p>
+          <h2 class="text-4xl font-bold tracking-tight mb-2">${t('historyTitle')}</h2>
+          <p class="text-on-surface-variant text-lg">${t('historySub')}</p>
         </div>
 
         ${state.error ? `<div class="bg-error-container text-on-error-container rounded-xl p-4 font-medium">${state.error}</div>` : ''}
@@ -296,13 +397,13 @@
         <div class="bg-surface-container-low/50 rounded-2xl overflow-hidden p-1">
           <div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
             <div class="grid grid-cols-12 px-6 py-4 bg-surface-container-low text-[11px] font-bold uppercase tracking-widest text-on-surface-variant/70">
-              <div class="col-span-7 md:col-span-5">Target Role & ID</div>
-              <div class="col-span-3 md:col-span-3 text-center">Source</div>
-              <div class="col-span-2 md:col-span-3 text-right md:text-left">Date</div>
-              <div class="hidden md:block md:col-span-1 text-right">Action</div>
+              <div class="col-span-7 md:col-span-5">${t('tableRole')}</div>
+              <div class="col-span-3 md:col-span-3 text-center">${t('tableSource')}</div>
+              <div class="col-span-2 md:col-span-3 text-right md:text-left">${t('tableDate')}</div>
+              <div class="hidden md:block md:col-span-1 text-right">${t('tableAction')}</div>
             </div>
             <div class="divide-y divide-surface-container-low">
-              ${rows || '<div class="px-6 py-10 text-on-surface-variant">No analyses yet.</div>'}
+              ${rows || `<div class="px-6 py-10 text-on-surface-variant">${t('noAnalyses')}</div>`}
             </div>
           </div>
         </div>
@@ -332,22 +433,15 @@
     });
 
     const newAnalysis = document.getElementById('new-analysis');
-    if (newAnalysis) {
-      newAnalysis.addEventListener('click', () => setPage('analyze'));
-    }
+    if (newAnalysis) newAnalysis.addEventListener('click', () => setPage('analyze'));
 
     const goAnalyze = document.getElementById('go-analyze');
-    if (goAnalyze) {
-      goAnalyze.addEventListener('click', () => setPage('analyze'));
-    }
+    if (goAnalyze) goAnalyze.addEventListener('click', () => setPage('analyze'));
 
     const translateBtn = document.getElementById('translate-btn');
     if (translateBtn && !translateBtn.dataset.bound) {
       translateBtn.dataset.bound = '1';
-      translateBtn.addEventListener('click', () => {
-        const url = encodeURIComponent(window.location.href);
-        window.open(`https://translate.google.com/translate?sl=auto&tl=en&u=${url}`, '_blank');
-      });
+      translateBtn.addEventListener('click', toggleLang);
     }
   }
 
@@ -355,6 +449,7 @@
     if (state.page === 'analyze') app.innerHTML = analyzePage();
     if (state.page === 'result') app.innerHTML = resultPage();
     if (state.page === 'history') app.innerHTML = historyPage();
+    syncTopNavText();
     bindActions();
   }
 
