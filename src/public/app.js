@@ -24,7 +24,7 @@
       uploadHint: 'If you upload a PDF, you do not need to fill "Resume Text".',
       resumeText: 'Resume Text',
       resumePlaceholder:
-        'Paste resume text here only if you DID NOT upload a PDF.',
+        'If you prefer, paste your resume text here. If you already uploaded a PDF, you can leave this blank.',
       analyzeBtn: 'Analyze Resume',
       analyzing: 'Analyzing...',
       noResult: 'No result yet',
@@ -65,7 +65,7 @@
       uploadHint: 'Se voce enviar PDF, nao precisa preencher "Resume Text".',
       resumeText: 'Texto do curriculo',
       resumePlaceholder:
-        'Cole o texto do curriculo apenas se voce NAO enviou PDF.',
+        'Se preferir, cole o texto do curriculo aqui. Se voce ja enviou PDF, pode deixar em branco.',
       analyzeBtn: 'Analisar curriculo',
       analyzing: 'Analisando...',
       noResult: 'Sem resultado ainda',
