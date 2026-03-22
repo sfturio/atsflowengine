@@ -509,7 +509,7 @@
             ? issues
                 .map(
                   (item) => `
-              <details class="group rounded-xl border border-slate-200 bg-white overflow-hidden">
+              <details open class="group rounded-xl border border-slate-200 bg-white overflow-hidden">
                 <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap items-start gap-3 justify-between">
                   <div class="min-w-0 flex-1">
                     <p class="text-sm font-semibold text-on-surface break-words">${item.title}</p>
@@ -563,7 +563,7 @@
             ? suggestions
                 .map(
                   (item) => `
-              <details class="group rounded-xl border border-slate-200 bg-white overflow-hidden">
+              <details open class="group rounded-xl border border-slate-200 bg-white overflow-hidden">
                 <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap items-start gap-3 justify-between">
                   <div class="min-w-0 flex-1">
                     <p class="text-sm font-semibold text-on-surface break-words">${item.title}</p>
