@@ -53,7 +53,7 @@
     none: 'Nenhum',
     historyTitle: 'Histórico de análises',
     historySub: 'Abra qualquer análise ATS salva.',
-    tableRole: 'ID da análise',
+    tableRole: 'Análise',
     tableSource: 'Fonte',
     tableDate: 'Data',
     tableAction: 'Ação',
@@ -683,22 +683,23 @@
     const rows = state.history
       .map((item) => {
         const date = new Date(item.createdAt).toLocaleDateString();
+        const analysisTitle = (item.targetRole || '').trim() || 'Análise ATS';
         return `
-          <button data-open="${item.analysisId}" class="w-full grid grid-cols-12 px-6 py-5 items-center hover:bg-surface-container-low/30 dark:hover:bg-slate-800/55 transition-colors group text-left">
+          <button data-open="${item.analysisId}" class="w-full grid grid-cols-12 px-6 py-5 items-center hover:bg-surface-container-low/25 dark:hover:bg-slate-800/45 transition-colors group text-left">
             <div class="col-span-7 md:col-span-5 flex items-center gap-4">
-              <div class="w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center text-primary">
+              <div class="w-10 h-10 rounded-lg bg-primary-fixed dark:bg-slate-800 flex items-center justify-center text-primary">
                 <span class="material-symbols-outlined">analytics</span>
               </div>
-              <div>
-                <p class="font-bold tracking-tight">${item.targetRole || t('tableRole')}</p>
-                <p class="text-xs text-on-surface-variant">${item.analysisId}</p>
+              <div class="min-w-0">
+                <p class="font-bold tracking-tight truncate">${analysisTitle}</p>
+                <p class="text-xs text-on-surface-variant dark:text-slate-400 truncate">${item.analysisId}</p>
               </div>
             </div>
             <div class="col-span-3 md:col-span-3 text-center">
-              <span class="text-xs uppercase tracking-widest text-on-surface-variant">${item.sourceType || 'text'}</span>
+              <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold border border-outline-variant/70 text-on-surface-variant dark:text-slate-300">${(item.sourceType || 'text').toUpperCase()}</span>
             </div>
-            <div class="col-span-2 md:col-span-3 text-sm text-on-surface-variant font-medium text-right md:text-left">${date}</div>
-            <div class="hidden md:block md:col-span-1 text-right"><span class="material-symbols-outlined text-outline-variant">chevron_right</span></div>
+            <div class="col-span-2 md:col-span-3 text-sm text-on-surface-variant dark:text-slate-300 font-medium text-right md:text-left">${date}</div>
+            <div class="hidden md:block md:col-span-1 text-right"><span class="material-symbols-outlined text-outline-variant dark:text-slate-400">chevron_right</span></div>
           </button>
         `;
       })
@@ -721,7 +722,7 @@
               <div class="col-span-2 md:col-span-3 text-right md:text-left">${t('tableDate')}</div>
               <div class="hidden md:block md:col-span-1 text-right">${t('tableAction')}</div>
             </div>
-            <div class="divide-y divide-surface-container-low">
+            <div class="divide-y divide-surface-container-low dark:divide-slate-700/70">
               ${rows || `<div class="px-6 py-10 text-on-surface-variant">${t('noAnalyses')}</div>`}
             </div>
           </div>
