@@ -8,7 +8,8 @@
     error: '',
     helpOpen: false,
     feedbackOpen: false,
-    feedbackText: ''
+    feedbackText: '',
+    selectedPdfName: ''
   };
 
   const UI_TEXT = {
@@ -254,7 +255,9 @@
     const status = document.getElementById('resume-upload-status');
     if (!zone || !status) return;
 
-    if (!file) {
+    if (file && file.name) state.selectedPdfName = file.name;
+
+    if (!file && !state.selectedPdfName) {
       zone.classList.remove('border-primary', 'bg-primary-fixed/40');
       zone.classList.add('border-outline-variant/20');
       status.textContent = t('uploadNoFile');
@@ -263,7 +266,7 @@
 
     zone.classList.remove('border-outline-variant/20');
     zone.classList.add('border-primary', 'bg-primary-fixed/40');
-    status.textContent = `${t('uploadSelectedPrefix')} ${file.name}`;
+    status.textContent = `${t('uploadSelectedPrefix')} ${state.selectedPdfName}`;
   }
 
   async function loadHistory() {
@@ -292,13 +295,14 @@
   }
 
   async function submitAnalysis(form) {
-    state.loading = true;
-    state.error = '';
-    render();
-
     const resumeText = form.querySelector('[name="resume_text"]').value.trim();
     const fileInput = form.querySelector('[name="resume_pdf"]');
     const file = fileInput.files[0];
+    state.selectedPdfName = file && file.name ? file.name : '';
+
+    state.loading = true;
+    state.error = '';
+    render();
 
     try {
       let response;
@@ -346,7 +350,7 @@
                 <span class="material-symbols-outlined text-3xl">upload_file</span>
               </div>
               <h3 class="text-lg font-semibold">${t('uploadTitle')}</h3>
-              <p id="resume-upload-status" class="text-xs font-semibold text-on-surface-variant mt-3">${t('uploadNoFile')}</p>
+              <p id="resume-upload-status" class="text-xs font-semibold text-on-surface-variant mt-3">${state.selectedPdfName ? `${t('uploadSelectedPrefix')} ${state.selectedPdfName}` : t('uploadNoFile')}</p>
             </label>
 
             <div class="space-y-3">
@@ -413,12 +417,13 @@
           </div>
         </section>
 
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <div class="space-y-6">
+        <section class="space-y-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
             ${chipCard(t('keywordsFound'), r.keywordsFound || [], 'primary')}
             ${chipCard(t('keywordsMissing'), r.keywordsMissing || [], 'tertiary')}
           </div>
-          <div class="space-y-6">
+
+          <div class="space-y-6 max-w-6xl mx-auto w-full">
             ${IssuesPanel(r.detectedIssueInsights || r.detectedIssues || [], t('detectedIssues'))}
             ${SuggestionsPanel(r.analysisSuggestions || r.improvementSuggestions || [], t('suggestions'))}
           </div>
