@@ -61,19 +61,19 @@
     aboutTitle: 'Sobre o ATSFlow Engine',
     aboutSubtitle:
       'Uma visão técnica e objetiva de como o ATSFlow transforma feedback de currículo em decisões claras para candidaturas.',
-    aboutWhatIsTitle: 'Project Context',
+    aboutWhatIsTitle: 'Contexto do Projeto',
     aboutWhatIsBody:
       'Processos seletivos com ATS filtram currículos por estrutura e aderência textual antes da etapa humana. O projeto reduz esse atrito ao mostrar, de forma objetiva, onde o currículo perde compatibilidade.',
-    aboutHowTitle: 'Technical Approach',
+    aboutHowTitle: 'Abordagem Técnica',
     aboutHowBody:
       'O fluxo extrai o conteúdo do currículo, normaliza seções e calcula um score com pesos fixos para palavras-chave, estrutura, legibilidade e força de conteúdo. Em vez de um número isolado, o sistema entrega diagnóstico estruturado e sugestões acionáveis.',
-    aboutLimitsTitle: 'Engineering Decisions',
+    aboutLimitsTitle: 'Decisões de Engenharia',
     aboutLimitsBody:
       'A arquitetura prioriza simplicidade operacional e comportamento previsível: backend modular, heurísticas determinísticas e fallback resiliente quando o LLM não responde. Essa combinação favorece manutenção, desempenho e evolução incremental sem complexidade desnecessária.',
-    aboutTechTitle: 'User Value',
+    aboutTechTitle: 'Valor para o Usuário',
     aboutTechBody:
       'Para quem está aplicando, o ganho é clareza prática: entender o que corrigir, iterar rápido no currículo e reduzir incerteza sobre o impacto de cada ajuste na estratégia de candidatura.',
-    aboutHumanTitle: 'Human Perspective',
+    aboutHumanTitle: 'Perspectiva Humana',
     aboutHumanBody:
       'A intenção do produto é simples: devolver autonomia para candidatos em um fluxo de contratação que costuma parecer opaco e difícil de interpretar.'
   };
