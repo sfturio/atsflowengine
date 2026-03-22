@@ -222,6 +222,16 @@
     document.documentElement.lang = 'pt-BR';
   }
 
+  function syncSideNavActiveState() {
+    document.querySelectorAll('[data-nav]').forEach((node) => {
+      const page = node.getAttribute('data-nav');
+      const isActive = page === state.page;
+      node.className = isActive
+        ? 'w-full text-left flex items-center px-3 py-2.5 bg-white text-primary rounded-xl shadow-sm font-medium'
+        : 'w-full text-left flex items-center px-3 py-2.5 text-on-surface-variant hover:bg-white rounded-xl font-medium transition-all';
+    });
+  }
+
   function scoreColor(score) {
     if (score >= 80) return 'text-primary';
     if (score >= 60) return 'text-[#92400E]';
@@ -884,6 +894,7 @@
     if (state.page === 'history') app.innerHTML = historyPage();
     if (state.page === 'about') app.innerHTML = aboutPage();
     syncTopNavText();
+    syncSideNavActiveState();
     renderSupportUi();
     bindActions();
   }
