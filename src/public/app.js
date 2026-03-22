@@ -60,22 +60,64 @@
     noAnalyses: 'Nenhuma análise ainda.',
     aboutTitle: 'Sobre o ATSFlow Engine',
     aboutSubtitle:
-      'Entenda como o ATSFlow ajuda você a otimizar seu currículo para processos seletivos modernos e aumentar suas chances de entrevista.',
-    aboutWhatIsTitle: 'O que este app faz',
+      'Uma visão técnica e objetiva de como o ATSFlow transforma feedback de currículo em decisões claras para candidaturas.',
+    aboutWhatIsTitle: 'Project Context',
     aboutWhatIsBody:
-      'O ATSFlow analisa seu currículo com foco em compatibilidade com sistemas de recrutamento (ATS), avaliando estrutura, clareza do conteúdo e aderência às competências exigidas na vaga. O resultado é um diagnóstico prático com sugestões objetivas para melhorar sua performance em processos seletivos.',
-    aboutHowTitle: 'Como a análise é calculada',
+      'Processos seletivos com ATS filtram currículos por estrutura e aderência textual antes da etapa humana. O projeto reduz esse atrito ao mostrar, de forma objetiva, onde o currículo perde compatibilidade.',
+    aboutHowTitle: 'Technical Approach',
     aboutHowBody:
-      'A pontuação combina diferentes fatores relevantes para recrutadores e sistemas automatizados, como correspondência de palavras-chave, organização das seções, legibilidade e impacto das descrições profissionais. Isso gera um score transparente e fácil de interpretar.',
-    aboutLimitsTitle: 'Limites importantes',
+      'O fluxo extrai o conteúdo do currículo, normaliza seções e calcula um score com pesos fixos para palavras-chave, estrutura, legibilidade e força de conteúdo. Em vez de um número isolado, o sistema entrega diagnóstico estruturado e sugestões acionáveis.',
+    aboutLimitsTitle: 'Engineering Decisions',
     aboutLimitsBody:
-      'O ATSFlow não substitui avaliação humana nem garante aprovação em vagas. A ferramenta existe para apoiar decisões mais estratégicas, ajudando candidatos a priorizar melhorias com base em critérios reais do mercado.',
-    aboutTechTitle: 'Base técnica',
+      'A arquitetura prioriza simplicidade operacional e comportamento previsível: backend modular, heurísticas determinísticas e fallback resiliente quando o LLM não responde. Essa combinação favorece manutenção, desempenho e evolução incremental sem complexidade desnecessária.',
+    aboutTechTitle: 'User Value',
     aboutTechBody:
-      'Construído com arquitetura moderna em Node.js e processamento inteligente de documentos, o ATSFlow integra heurísticas determinísticas e análise assistida por IA para entregar feedback consistente, rápido e resiliente.'
+      'Para quem está aplicando, o ganho é clareza prática: entender o que corrigir, iterar rápido no currículo e reduzir incerteza sobre o impacto de cada ajuste na estratégia de candidatura.',
+    aboutHumanTitle: 'Human Perspective',
+    aboutHumanBody:
+      'A intenção do produto é simples: devolver autonomia para candidatos em um fluxo de contratação que costuma parecer opaco e difícil de interpretar.'
   };
 
   const t = (key) => UI_TEXT[key] || key;
+  const THEME_KEY = 'ai-career-suite-theme';
+
+  function getPreferredTheme() {
+    const saved = window.localStorage.getItem(THEME_KEY);
+    if (saved === 'dark' || saved === 'light') return saved;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function updateThemeToggle(theme) {
+    const toggleText = document.getElementById('theme-toggle-text');
+    if (toggleText) toggleText.textContent = theme === 'dark' ? 'Dark' : 'Light';
+
+    const toggleIcon = document.getElementById('theme-toggle-icon');
+    if (toggleIcon) toggleIcon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
+
+    const toggleButton = document.getElementById('theme-toggle');
+    if (toggleButton) {
+      toggleButton.setAttribute('aria-label', theme === 'dark' ? 'Ativar modo claro' : 'Ativar modo escuro');
+    }
+  }
+
+  function applyTheme(theme) {
+    const root = document.documentElement;
+    root.classList.remove('light', 'dark');
+    root.classList.add(theme);
+    window.localStorage.setItem(THEME_KEY, theme);
+    updateThemeToggle(theme);
+  }
+
+  function bindThemeToggle() {
+    const toggleButton = document.getElementById('theme-toggle');
+    if (!toggleButton || toggleButton.dataset.bound === '1') return;
+
+    toggleButton.dataset.bound = '1';
+    toggleButton.addEventListener('click', () => {
+      const nextTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+      applyTheme(nextTheme);
+    });
+  }
 
   function SidebarSupportSection() {
     return `
@@ -176,6 +218,7 @@
       if (node) node.textContent = text;
     });
 
+    updateThemeToggle(document.documentElement.classList.contains('dark') ? 'dark' : 'light');
     document.documentElement.lang = 'pt-BR';
   }
 
@@ -714,6 +757,10 @@
             <h3 class="text-xl font-bold">${t('aboutTechTitle')}</h3>
             <p class="text-on-surface-variant leading-relaxed">${t('aboutTechBody')}</p>
           </article>
+          <article class="bg-surface-container-lowest rounded-xl p-6 shadow-sm space-y-3">
+            <h3 class="text-xl font-bold">${t('aboutHumanTitle')}</h3>
+            <p class="text-on-surface-variant leading-relaxed">${t('aboutHumanBody')}</p>
+          </article>
         </section>
       </div>
     `;
@@ -754,6 +801,7 @@
 
     const goAnalyze = document.getElementById('go-analyze');
     if (goAnalyze) goAnalyze.addEventListener('click', () => setPage('analyze'));
+    bindThemeToggle();
 
     const openHelp = document.getElementById('open-help');
     if (openHelp) {
@@ -841,5 +889,6 @@
     bindActions();
   }
 
+  applyTheme(getPreferredTheme());
   render();
 })();
