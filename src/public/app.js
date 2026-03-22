@@ -96,7 +96,7 @@
         <div class="w-full max-w-3xl max-h-[86vh] overflow-y-auto bg-white rounded-2xl shadow-2xl p-8 md:p-10">
           <div class="flex items-start justify-between gap-4 mb-8">
             <h2 class="text-3xl font-bold tracking-tight">Como usar este app</h2>
-            <button id="close-help" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-slate-100 hover:bg-slate-200">Fechar</button>
+            <button id="close-help" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-surface-container-low hover:bg-surface-container-high">Fechar</button>
           </div>
 
           <ol class="space-y-3 text-[15px] leading-relaxed list-decimal pl-5 mb-10">
@@ -111,17 +111,17 @@
           <section class="mb-10">
             <h3 class="text-xl font-bold mb-4">Perguntas Frequentes</h3>
             <div class="space-y-4 text-[15px] leading-relaxed">
-              <div><p class="font-semibold">Esta análise é 100% precisa?</p><p class="text-slate-600">Não. Esta ferramenta combina análise determinística e assistência de IA para orientar, sem garantias absolutas.</p></div>
-              <div><p class="font-semibold">Você armazena meu currículo?</p><p class="text-slate-600">As análises podem ser armazenadas localmente para melhorar sua experiência e manter histórico.</p></div>
-              <div><p class="font-semibold">Posso usar isso em candidaturas reais?</p><p class="text-slate-600">Sim. A ferramenta ajuda a otimizar estrutura e posicionamento, mas ajustes finais sempre são recomendados.</p></div>
-              <div><p class="font-semibold">Por que os scores diferem de outras ferramentas?</p><p class="text-slate-600">Cada plataforma usa heurísticas e modelos diferentes. Este app prioriza clareza, transparência e insights acionáveis.</p></div>
-              <div><p class="font-semibold">Qual a diferença entre ATSFlow e RAGFlow?</p><p class="text-slate-600">ATSFlow foca em otimização técnica para ATS. RAGFlow foca em match semântico e estratégia de carreira.</p></div>
+              <div><p class="font-semibold">Esta análise é 100% precisa?</p><p class="text-on-surface-variant">Não. Esta ferramenta combina análise determinística e assistência de IA para orientar, sem garantias absolutas.</p></div>
+              <div><p class="font-semibold">Você armazena meu currículo?</p><p class="text-on-surface-variant">As análises podem ser armazenadas localmente para melhorar sua experiência e manter histórico.</p></div>
+              <div><p class="font-semibold">Posso usar isso em candidaturas reais?</p><p class="text-on-surface-variant">Sim. A ferramenta ajuda a otimizar estrutura e posicionamento, mas ajustes finais sempre são recomendados.</p></div>
+              <div><p class="font-semibold">Por que os scores diferem de outras ferramentas?</p><p class="text-on-surface-variant">Cada plataforma usa heurísticas e modelos diferentes. Este app prioriza clareza, transparência e insights acionáveis.</p></div>
+              <div><p class="font-semibold">Qual a diferença entre ATSFlow e RAGFlow?</p><p class="text-on-surface-variant">ATSFlow foca em otimização técnica para ATS. RAGFlow foca em match semântico e estratégia de carreira.</p></div>
             </div>
           </section>
 
           <section>
             <h3 class="text-xl font-bold mb-4">Dicas para melhores resultados</h3>
-            <ul class="space-y-2 text-[15px] leading-relaxed list-disc pl-5 text-slate-700">
+            <ul class="space-y-2 text-[15px] leading-relaxed list-disc pl-5 text-on-surface-variant">
               <li>Use descrições de vaga completas.</li>
               <li>Evite currículos extremamente curtos.</li>
               <li>Foque em conquistas mensuráveis.</li>
@@ -139,12 +139,12 @@
         <div class="w-full max-w-2xl bg-white rounded-2xl shadow-2xl p-8">
           <div class="flex items-start justify-between gap-4 mb-6">
             <h2 class="text-2xl font-bold tracking-tight">Feedback</h2>
-            <button id="close-feedback" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-slate-100 hover:bg-slate-200">Fechar</button>
+            <button id="close-feedback" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-surface-container-low hover:bg-surface-container-high">Fechar</button>
           </div>
           <label for="feedback-input" class="block text-sm font-semibold mb-3">Compartilhe sua sugestão ou reporte um problema</label>
-          <textarea id="feedback-input" class="w-full h-44 p-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100 resize-none" placeholder="Digite seu feedback aqui...">${state.feedbackText || ''}</textarea>
+          <textarea id="feedback-input" class="w-full h-44 p-4 rounded-xl bg-surface-container-low border border-outline-variant focus:border-primary/40 focus:ring-2 focus:ring-primary/15 resize-none" placeholder="Digite seu feedback aqui...">${state.feedbackText || ''}</textarea>
           <div class="mt-5 flex justify-end">
-            <button id="send-feedback" class="px-5 py-2.5 rounded-xl text-white font-semibold bg-indigo-600 hover:bg-indigo-500 transition-colors">Enviar Feedback</button>
+            <button id="send-feedback" class="px-5 py-2.5 rounded-xl text-white font-semibold bg-primary hover:bg-primary-container transition-colors">Enviar Feedback</button>
           </div>
         </div>
       </div>
@@ -326,9 +326,9 @@
     const circ = Math.round(553 - (Math.max(0, Math.min(100, r.atsScore || 0)) / 100) * 553);
 
     return `
-      <div class="space-y-8">
+      <div class="space-y-10">
         <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          <div class="lg:col-span-4 bg-surface-container-lowest p-8 rounded-xl shadow-sm flex flex-col items-center justify-center space-y-6 text-center">
+          <div class="lg:col-span-4 premium-card premium-hover p-8 flex flex-col items-center justify-center space-y-6 text-center">
             <div class="relative w-48 h-48 flex items-center justify-center">
               <svg class="w-full h-full transform -rotate-90">
                 <circle class="text-surface-container-highest/20" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-width="12"></circle>
@@ -347,8 +347,9 @@
           </div>
 
           <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div class="sm:col-span-2 bg-gradient-to-br from-indigo-50 to-white p-6 rounded-xl border border-primary/10">
-              <h4 class="font-bold text-on-surface mb-2">${t('finalSummary')}</h4>
+            <div class="sm:col-span-2 premium-card p-7">
+              <h4 class="text-lg font-bold text-on-surface mb-2">${t('finalSummary')}</h4>
+              <div class="h-px bg-gradient-to-r from-primary/50 via-primary/15 to-transparent mb-4"></div>
               <p class="text-on-surface-variant text-sm leading-relaxed">${r.shortFinalSummary || t('none')}</p>
             </div>
             ${scoreRow(t('keywordMatch'), r.keywordMatchScore || 0)}
@@ -358,7 +359,7 @@
           </div>
         </section>
 
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <div class="space-y-6">
             ${chipCard(t('keywordsFound'), r.keywordsFound || [], 'primary')}
             ${chipCard(t('keywordsMissing'), r.keywordsMissing || [], 'tertiary')}
@@ -374,7 +375,7 @@
 
   function scoreRow(label, value) {
     return `
-      <div class="bg-surface-container-low p-5 rounded-xl flex flex-col justify-between">
+      <div class="premium-card p-6 flex flex-col justify-between">
         <div class="flex justify-between items-center mb-3">
           <span class="text-sm font-semibold text-on-surface-variant">${label}</span>
           <span class="text-sm font-bold ${scoreColor(value)}">${value}%</span>
@@ -392,7 +393,7 @@
       : 'bg-tertiary-container/10 text-tertiary-container border-tertiary-container/5';
 
     return `
-      <div class="bg-surface-container-low/50 p-6 rounded-xl border-l-4 ${tone === 'primary' ? 'border-primary' : 'border-tertiary-container'}">
+      <div class="premium-card p-6 border-l-4 ${tone === 'primary' ? 'border-primary' : 'border-tertiary-container'}">
         <h4 class="text-base font-bold mb-4">${title}</h4>
         <div class="flex flex-wrap gap-2">
           ${items.length ? items.map((i) => `<span class="px-3 py-1 ${cls} text-xs font-semibold rounded-full border">${i}</span>`).join('') : `<span class="text-on-surface-variant text-sm">${t('none')}</span>`}
@@ -403,7 +404,7 @@
 
   function listCard(title, items, icon, tone) {
     return `
-      <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+      <div class="premium-card p-6">
         <h4 class="text-base font-bold mb-4">${title}</h4>
         <ul class="space-y-3">
           ${items.length ? items.map((item) => `
@@ -419,17 +420,28 @@
   function priorityBadge(priority) {
     const normalized = (priority || 'low').toLowerCase();
     if (normalized === 'high') {
-      return '<span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold bg-red-50 text-red-700 border border-red-200">🔴 High</span>';
+      return '<span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold border" style="background:#FFF4F4;color:#F04438;border-color:#FBCACA;">🔴 High</span>';
     }
     if (normalized === 'medium') {
-      return '<span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200">🟡 Medium</span>';
+      return '<span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold border" style="background:#FFF8F1;color:#F59E0B;border-color:#FDE1C2;">🟡 Medium</span>';
     }
-    return '<span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200">🔵 Low</span>';
+    return '<span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold border" style="background:#F4F7FF;color:#5B6CFF;border-color:#DCE4FF;">🔵 Low</span>';
   }
 
   function categoryTag(category) {
     const label = category || 'Content';
-    return `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">${label}</span>`;
+    return `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border border-outline-variant bg-white text-on-surface-variant">${label}</span>`;
+  }
+
+  function priorityTone(priority) {
+    const normalized = (priority || 'low').toLowerCase();
+    if (normalized === 'high') {
+      return { tint: '#FFF4F4', accent: '#F04438' };
+    }
+    if (normalized === 'medium') {
+      return { tint: '#FFF8F1', accent: '#F59E0B' };
+    }
+    return { tint: '#F4F7FF', accent: '#5B6CFF' };
   }
 
   function normalizeSuggestion(rawItem) {
@@ -502,14 +514,16 @@
   function IssuesPanel(items, title) {
     const issues = Array.isArray(items) ? items.map(normalizeIssue) : [];
     return `
-      <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
-        <h4 class="text-base font-bold mb-4">${title}</h4>
-        <div class="space-y-4">
+      <div class="premium-card p-7">
+        <h4 class="text-lg font-bold mb-5">${title}</h4>
+        <div class="space-y-5">
           ${issues.length
             ? issues
-                .map(
-                  (item) => `
-              <details open class="group rounded-xl border border-slate-200 bg-white overflow-hidden">
+                .map((item, idx) => {
+                  const tone = priorityTone(item.priority);
+                  const patternedTint = idx % 2 === 0 ? tone.tint : '#FFFFFF';
+                  return `
+              <details open class="group premium-hover rounded-2xl border border-outline-variant overflow-hidden" style="background:${patternedTint}; border-left:4px solid ${tone.accent}; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
                 <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap items-start gap-3 justify-between">
                   <div class="min-w-0 flex-1">
                     <p class="text-sm font-semibold text-on-surface break-words">${item.title}</p>
@@ -520,15 +534,15 @@
                     <span class="material-symbols-outlined text-slate-400 transition-transform group-open:rotate-180">expand_more</span>
                   </div>
                 </summary>
-                <div class="px-4 pb-4 pt-1 space-y-3 border-t border-slate-100 bg-slate-50/60">
+                <div class="px-4 pb-5 pt-2 space-y-3 border-t border-outline-variant/70">
                   ${item.reason ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('reason')}:</span> ${item.reason}</p>` : ''}
                   ${item.impact ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('impact')}:</span> ${item.impact}</p>` : ''}
                   ${item.action ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('action')}:</span> ${item.action}</p>` : ''}
                   ${item.evidence ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('evidence')}:</span> ${item.evidence}</p>` : ''}
                   ${renderFutureIssueFields(item)}
                 </div>
-              </details>`
-                )
+              </details>`;
+                })
                 .join('')
             : `<p class="text-sm text-on-surface-variant">${t('none')}</p>`}
         </div>
@@ -556,14 +570,16 @@
   function SuggestionsPanel(items, title) {
     const suggestions = Array.isArray(items) ? items.map(normalizeSuggestion) : [];
     return `
-      <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
-        <h4 class="text-base font-bold mb-4">${title}</h4>
-        <div class="space-y-4">
+      <div class="premium-card p-7">
+        <h4 class="text-lg font-bold mb-5">${title}</h4>
+        <div class="space-y-5">
           ${suggestions.length
             ? suggestions
-                .map(
-                  (item) => `
-              <details open class="group rounded-xl border border-slate-200 bg-white overflow-hidden">
+                .map((item, idx) => {
+                  const tone = priorityTone(item.priority);
+                  const patternedTint = idx % 2 === 0 ? '#FFFFFF' : tone.tint;
+                  return `
+              <details open class="group premium-hover rounded-2xl border border-outline-variant overflow-hidden" style="background:${patternedTint}; border-left:4px solid ${tone.accent}; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
                 <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap items-start gap-3 justify-between">
                   <div class="min-w-0 flex-1">
                     <p class="text-sm font-semibold text-on-surface break-words">${item.title}</p>
@@ -574,14 +590,14 @@
                     <span class="material-symbols-outlined text-slate-400 transition-transform group-open:rotate-180">expand_more</span>
                   </div>
                 </summary>
-                <div class="px-4 pb-4 pt-1 space-y-3 border-t border-slate-100 bg-slate-50/60">
+                <div class="px-4 pb-5 pt-2 space-y-3 border-t border-outline-variant/70">
                   ${item.reason ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('reason')}:</span> ${item.reason}</p>` : ''}
                   ${item.action ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('action')}:</span> ${item.action}</p>` : ''}
                   ${item.example ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('example')}:</span> ${item.example}</p>` : ''}
                   ${renderFutureFields(item)}
                 </div>
-              </details>`
-                )
+              </details>`;
+                })
                 .join('')
             : `<p class="text-sm text-on-surface-variant">${t('none')}</p>`}
         </div>
@@ -596,7 +612,7 @@
         return `
           <button data-open="${item.analysisId}" class="w-full grid grid-cols-12 px-6 py-5 items-center hover:bg-surface-container-low/30 transition-colors group text-left">
             <div class="col-span-7 md:col-span-5 flex items-center gap-4">
-              <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
+              <div class="w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center text-primary">
                 <span class="material-symbols-outlined">analytics</span>
               </div>
               <div>
