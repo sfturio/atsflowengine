@@ -181,13 +181,13 @@
 
   function scoreColor(score) {
     if (score >= 80) return 'text-primary';
-    if (score >= 60) return 'text-[#9A3412]';
+    if (score >= 60) return 'text-[#92400E]';
     return 'text-error';
   }
 
   function progressColor(score) {
     if (score >= 80) return 'bg-primary';
-    if (score >= 60) return 'bg-[#F59E0B]';
+    if (score >= 60) return 'bg-[#D97706]';
     return 'bg-error';
   }
 
@@ -389,15 +389,27 @@
   }
 
   function chipCard(title, items, tone) {
-    const cls = tone === 'primary'
-      ? 'bg-[#EEF2FF] text-[#2F3FA7] border-[#C7D2FE]'
-      : 'bg-[#FFF1E8] text-[#9A3412] border-[#FBD2B4]';
+    const toneMeta =
+      tone === 'primary'
+        ? {
+            tint: '#EFF6FF',
+            accent: '#2563EB',
+            chip: 'bg-[#DBEAFE] text-[#1D4ED8] border-[#BFDBFE]',
+            label: 'Competências mapeadas'
+          }
+        : {
+            tint: '#FFFBEB',
+            accent: '#D97706',
+            chip: 'bg-[#FEF3C7] text-[#92400E] border-[#FDE68A]',
+            label: 'Lacunas de palavras-chave'
+          };
 
     return `
-      <div class="premium-card premium-card-soft premium-hover p-7 border-l-4 ${tone === 'primary' ? 'border-primary' : 'border-tertiary-container'}">
-        <h4 class="text-base font-bold mb-4">${title}</h4>
+      <div class="premium-card premium-hover p-8 border border-outline-variant/60" style="background:${toneMeta.tint}; border-left:4px solid ${toneMeta.accent}; box-shadow: var(--card-shadow-soft);">
+        <p class="mono-label uppercase text-on-surface-variant/70 mb-2">${toneMeta.label}</p>
+        <h4 class="text-[1.75rem] font-bold tracking-tight mb-4">${title}</h4>
         <div class="flex flex-wrap gap-2">
-          ${items.length ? items.map((i) => `<span class="px-3 py-1 ${cls} text-xs font-semibold rounded-full border">${i}</span>`).join('') : `<span class="text-on-surface-variant text-sm">${t('none')}</span>`}
+          ${items.length ? items.map((i) => `<span class="px-3 py-1 ${toneMeta.chip} text-xs font-semibold rounded-full border">${i}</span>`).join('') : `<span class="text-on-surface-variant text-sm">${t('none')}</span>`}
         </div>
       </div>
     `;
@@ -426,12 +438,12 @@
   function priorityTone(priority) {
     const normalized = (priority || 'low').toLowerCase();
     if (normalized === 'high') {
-      return { tint: '#FFF4F4', accent: '#F04438' };
+      return { tint: '#FFF1F2', accent: '#E11D48' };
     }
     if (normalized === 'medium') {
-      return { tint: '#FFF8F1', accent: '#F59E0B' };
+      return { tint: '#FFFBEB', accent: '#D97706' };
     }
-    return { tint: '#F4F7FF', accent: '#5B6CFF' };
+    return { tint: '#EFF6FF', accent: '#2563EB' };
   }
 
   function priorityRank(priority) {
@@ -524,6 +536,7 @@
     const issues = Array.isArray(items) ? sortByPriority(items.map(normalizeIssue)) : [];
     return `
       <div class="premium-card premium-card-soft premium-hover p-8">
+        <p class="mono-label uppercase text-on-surface-variant/70 mb-2">Análise crítica</p>
         <h4 class="text-lg font-bold mb-5">${title}</h4>
         <div class="space-y-5">
           ${issues.length
@@ -578,6 +591,7 @@
     const suggestions = Array.isArray(items) ? sortByPriority(items.map(normalizeSuggestion)) : [];
     return `
       <div class="premium-card premium-card-soft premium-hover p-8">
+        <p class="mono-label uppercase text-on-surface-variant/70 mb-2">Plano de melhoria</p>
         <h4 class="text-lg font-bold mb-5">${title}</h4>
         <div class="space-y-5">
           ${suggestions.length
