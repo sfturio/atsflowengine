@@ -347,9 +347,10 @@
           </div>
 
           <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div class="sm:col-span-2 premium-card p-7">
-              <h4 class="text-lg font-bold text-on-surface mb-2">${t('finalSummary')}</h4>
-              <div class="h-px bg-gradient-to-r from-primary/50 via-primary/15 to-transparent mb-4"></div>
+            <div class="sm:col-span-2 premium-card premium-card-soft premium-hover p-8">
+              <p class="text-[11px] uppercase tracking-[0.1em] text-on-surface-variant/80 font-semibold mb-2">${t('finalSummary')}</p>
+              <h4 class="text-xl font-bold tracking-tight text-on-surface mb-3">Diagnóstico consolidado</h4>
+              <div class="h-px bg-gradient-to-r from-primary/45 via-primary/12 to-transparent mb-5"></div>
               <p class="text-on-surface-variant text-sm leading-relaxed">${r.shortFinalSummary || t('none')}</p>
             </div>
             ${scoreRow(t('keywordMatch'), r.keywordMatchScore || 0)}
@@ -375,7 +376,7 @@
 
   function scoreRow(label, value) {
     return `
-      <div class="premium-card p-6 flex flex-col justify-between">
+      <div class="premium-card premium-card-soft premium-hover p-7 flex flex-col justify-between">
         <div class="flex justify-between items-center mb-3">
           <span class="text-sm font-semibold text-on-surface-variant">${label}</span>
           <span class="text-sm font-bold ${scoreColor(value)}">${value}%</span>
@@ -393,7 +394,7 @@
       : 'bg-[#FFF1E8] text-[#9A3412] border-[#FBD2B4]';
 
     return `
-      <div class="premium-card p-6 border-l-4 ${tone === 'primary' ? 'border-primary' : 'border-tertiary-container'}">
+      <div class="premium-card premium-card-soft premium-hover p-7 border-l-4 ${tone === 'primary' ? 'border-primary' : 'border-tertiary-container'}">
         <h4 class="text-base font-bold mb-4">${title}</h4>
         <div class="flex flex-wrap gap-2">
           ${items.length ? items.map((i) => `<span class="px-3 py-1 ${cls} text-xs font-semibold rounded-full border">${i}</span>`).join('') : `<span class="text-on-surface-variant text-sm">${t('none')}</span>`}
@@ -404,7 +405,7 @@
 
   function listCard(title, items, icon, tone) {
     return `
-      <div class="premium-card p-6">
+      <div class="premium-card premium-card-soft premium-hover p-7">
         <h4 class="text-base font-bold mb-4">${title}</h4>
         <ul class="space-y-3">
           ${items.length ? items.map((item) => `
@@ -522,7 +523,7 @@
   function IssuesPanel(items, title) {
     const issues = Array.isArray(items) ? sortByPriority(items.map(normalizeIssue)) : [];
     return `
-      <div class="premium-card p-7 bg-[#FCFDFF]">
+      <div class="premium-card premium-card-soft premium-hover p-8">
         <h4 class="text-lg font-bold mb-5">${title}</h4>
         <div class="space-y-5">
           ${issues.length
@@ -530,7 +531,7 @@
                 .map((item) => {
                   const tone = priorityTone(item.priority);
                   return `
-              <details open class="group premium-hover rounded-2xl border border-outline-variant/70 overflow-hidden" style="background:${tone.tint}; border-left:4px solid ${tone.accent}; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+              <details open class="group premium-hover rounded-2xl border border-outline-variant/60 overflow-hidden" style="background:${tone.tint}; border-left:4px solid ${tone.accent}; box-shadow: var(--card-shadow-soft);">
                 <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap items-start gap-3 justify-between">
                   <div class="min-w-0 flex-1">
                     <p class="text-sm font-semibold text-on-surface break-words">${item.title}</p>
@@ -576,7 +577,7 @@
   function SuggestionsPanel(items, title) {
     const suggestions = Array.isArray(items) ? sortByPriority(items.map(normalizeSuggestion)) : [];
     return `
-      <div class="premium-card p-7 bg-[#FCFDFF]">
+      <div class="premium-card premium-card-soft premium-hover p-8">
         <h4 class="text-lg font-bold mb-5">${title}</h4>
         <div class="space-y-5">
           ${suggestions.length
@@ -584,7 +585,7 @@
                 .map((item) => {
                   const tone = priorityTone(item.priority);
                   return `
-              <details open class="group premium-hover rounded-2xl border border-outline-variant/70 overflow-hidden" style="background:${tone.tint}; border-left:4px solid ${tone.accent}; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+              <details open class="group premium-hover rounded-2xl border border-outline-variant/60 overflow-hidden" style="background:${tone.tint}; border-left:4px solid ${tone.accent}; box-shadow: var(--card-shadow-soft);">
                 <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap items-start gap-3 justify-between">
                   <div class="min-w-0 flex-1">
                     <p class="text-sm font-semibold text-on-surface break-words">${item.title}</p>
