@@ -1,4 +1,4 @@
-const { clampScore, normalizeText, unique } = require("../utils/text-utils");
+const { clampScore, detectLanguage, normalizeText, unique } = require("../utils/text-utils");
 
 const SECTION_PATTERNS = {
   summary: ["summary", "resumo", "perfil"],
@@ -577,8 +577,29 @@ function buildDeterministicSummary({ language, atsScore, keywordMatchScore, stru
     .replace("{readabilityScore}", readabilityScore);
 }
 
+function chooseOutputLanguage({ resumeText = "" }) {
+  const detected = detectLanguage(resumeText);
+  if (detected !== "en") return "pt";
+
+  const source = normalizeText(resumeText);
+  const englishSignals = [
+    "resume",
+    "job description",
+    "requirements",
+    "responsibilities",
+    "must have",
+    "nice to have",
+    "backend developer",
+    "full stack",
+    "microservices",
+    "cloud"
+  ];
+  const enHits = englishSignals.filter((signal) => source.includes(signal)).length;
+  return enHits >= 2 ? "en" : "pt";
+}
+
 function analyzeResume({ resumeText }) {
-  const language = "pt";
+  const language = chooseOutputLanguage({ resumeText });
 
   const keywordData = analyzeKeywords(resumeText);
   const structureData = analyzeStructure(resumeText);
