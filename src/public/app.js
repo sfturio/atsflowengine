@@ -435,20 +435,18 @@
     const toneMeta =
       tone === 'primary'
         ? {
-            tint: '#EFF6FF',
             accent: '#2563EB',
-            chip: 'bg-[#DBEAFE] text-[#1D4ED8] border-[#BFDBFE]',
+            chip: 'bg-[#DBEAFE] text-[#1D4ED8] border-[#BFDBFE] dark:bg-blue-950/50 dark:text-blue-200 dark:border-blue-800/80',
             label: 'Competências mapeadas'
           }
         : {
-            tint: '#FFFBEB',
             accent: '#D97706',
-            chip: 'bg-[#FEF3C7] text-[#92400E] border-[#FDE68A]',
+            chip: 'bg-[#FEF3C7] text-[#92400E] border-[#FDE68A] dark:bg-amber-950/45 dark:text-amber-200 dark:border-amber-800/80',
             label: 'Lacunas de palavras-chave'
           };
 
     return `
-      <div class="premium-card premium-hover p-6 border border-outline-variant/60" style="background:${toneMeta.tint}; border-left:4px solid ${toneMeta.accent}; box-shadow: var(--card-shadow-soft);">
+      <div class="premium-card premium-hover p-6 border border-outline-variant/60 bg-surface-container-lowest dark:bg-slate-900/70" style="border-left:4px solid ${toneMeta.accent}; box-shadow: var(--card-shadow-soft);">
         <p class="mono-label uppercase text-on-surface-variant/70 mb-1.5">${toneMeta.label}</p>
         <h4 class="text-2xl font-bold tracking-tight mb-3">${title}</h4>
         <div class="flex flex-wrap gap-2">
@@ -475,7 +473,7 @@
 
   function categoryTag(category) {
     const label = category || 'Content';
-    return `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border border-outline-variant bg-white text-on-surface-variant">${label}</span>`;
+    return `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border border-outline-variant bg-white dark:bg-slate-800/80 text-on-surface-variant dark:text-slate-200">${label}</span>`;
   }
 
   function priorityTone(priority) {
@@ -576,11 +574,11 @@
     if (!extraEntries.length) return '';
 
     return `
-      <div class="space-y-2 pt-2 border-t border-slate-100">
+      <div class="space-y-2 pt-2 border-t border-outline-variant/70 dark:border-slate-700/80">
         ${extraEntries
           .map(([key, value]) => {
             const renderedValue = Array.isArray(value) ? value.join(', ') : String(value);
-            return `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${key}:</span> ${renderedValue}</p>`;
+            return `<p class="text-sm text-on-surface-variant dark:text-slate-300 break-words"><span class="font-semibold text-on-surface dark:text-slate-100">${key}:</span> ${renderedValue}</p>`;
           })
           .join('')}
       </div>
@@ -599,22 +597,22 @@
                 .map((item) => {
                   const tone = priorityTone(item.priority);
                   return `
-              <details open class="group premium-hover rounded-2xl border border-outline-variant/60 overflow-hidden" style="background:${tone.tint}; border-left:4px solid ${tone.accent}; box-shadow: var(--card-shadow-soft);">
+              <details open class="group premium-hover rounded-2xl border border-outline-variant/60 overflow-hidden bg-surface-container-lowest dark:bg-slate-900/70" style="border-left:4px solid ${tone.accent}; box-shadow: var(--card-shadow-soft);">
                 <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap items-start gap-3 justify-between">
                   <div class="min-w-0 flex-1">
-                    <p class="text-sm font-semibold text-on-surface break-words">${item.title}</p>
+                    <p class="text-sm font-semibold text-on-surface dark:text-slate-100 break-words">${item.title}</p>
                   </div>
                   <div class="flex items-center gap-2 shrink-0">
                     ${priorityPill(item.priority)}
                     ${categoryTag(item.category)}
-                    <span class="material-symbols-outlined text-slate-400 transition-transform group-open:rotate-180">expand_more</span>
+                    <span class="material-symbols-outlined text-slate-400 dark:text-slate-300 transition-transform group-open:rotate-180">expand_more</span>
                   </div>
                 </summary>
-                <div class="px-4 pb-5 pt-2 space-y-3 border-t border-outline-variant/70 bg-white/65">
-                  ${item.reason ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('reason')}:</span> ${item.reason}</p>` : ''}
-                  ${item.impact ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('impact')}:</span> ${item.impact}</p>` : ''}
-                  ${item.action ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('action')}:</span> ${item.action}</p>` : ''}
-                  ${item.evidence ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('evidence')}:</span> ${item.evidence}</p>` : ''}
+                <div class="px-4 pb-5 pt-2 space-y-3 border-t border-outline-variant/70 bg-surface-container-low/70 dark:bg-slate-900/45">
+                  ${item.reason ? `<p class="text-sm text-on-surface-variant dark:text-slate-300 break-words"><span class="font-semibold text-on-surface dark:text-slate-100">${t('reason')}:</span> ${item.reason}</p>` : ''}
+                  ${item.impact ? `<p class="text-sm text-on-surface-variant dark:text-slate-300 break-words"><span class="font-semibold text-on-surface dark:text-slate-100">${t('impact')}:</span> ${item.impact}</p>` : ''}
+                  ${item.action ? `<p class="text-sm text-on-surface-variant dark:text-slate-300 break-words"><span class="font-semibold text-on-surface dark:text-slate-100">${t('action')}:</span> ${item.action}</p>` : ''}
+                  ${item.evidence ? `<p class="text-sm text-on-surface-variant dark:text-slate-300 break-words"><span class="font-semibold text-on-surface dark:text-slate-100">${t('evidence')}:</span> ${item.evidence}</p>` : ''}
                   ${renderFutureIssueFields(item)}
                 </div>
               </details>`;
@@ -632,11 +630,11 @@
     if (!extraEntries.length) return '';
 
     return `
-      <div class="space-y-2 pt-2 border-t border-slate-100">
+      <div class="space-y-2 pt-2 border-t border-outline-variant/70 dark:border-slate-700/80">
         ${extraEntries
           .map(([key, value]) => {
             const renderedValue = Array.isArray(value) ? value.join(', ') : String(value);
-            return `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${key}:</span> ${renderedValue}</p>`;
+            return `<p class="text-sm text-on-surface-variant dark:text-slate-300 break-words"><span class="font-semibold text-on-surface dark:text-slate-100">${key}:</span> ${renderedValue}</p>`;
           })
           .join('')}
       </div>
@@ -655,21 +653,21 @@
                 .map((item) => {
                   const tone = priorityTone(item.priority);
                   return `
-              <details open class="group premium-hover rounded-2xl border border-outline-variant/60 overflow-hidden" style="background:${tone.tint}; border-left:4px solid ${tone.accent}; box-shadow: var(--card-shadow-soft);">
+              <details open class="group premium-hover rounded-2xl border border-outline-variant/60 overflow-hidden bg-surface-container-lowest dark:bg-slate-900/70" style="border-left:4px solid ${tone.accent}; box-shadow: var(--card-shadow-soft);">
                 <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap items-start gap-3 justify-between">
                   <div class="min-w-0 flex-1">
-                    <p class="text-sm font-semibold text-on-surface break-words">${item.title}</p>
+                    <p class="text-sm font-semibold text-on-surface dark:text-slate-100 break-words">${item.title}</p>
                   </div>
                   <div class="flex items-center gap-2 shrink-0">
                     ${priorityPill(item.priority)}
                     ${categoryTag(item.category)}
-                    <span class="material-symbols-outlined text-slate-400 transition-transform group-open:rotate-180">expand_more</span>
+                    <span class="material-symbols-outlined text-slate-400 dark:text-slate-300 transition-transform group-open:rotate-180">expand_more</span>
                   </div>
                 </summary>
-                <div class="px-4 pb-5 pt-2 space-y-3 border-t border-outline-variant/70 bg-white/65">
-                  ${item.reason ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('reason')}:</span> ${item.reason}</p>` : ''}
-                  ${item.action ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('action')}:</span> ${item.action}</p>` : ''}
-                  ${item.example ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('example')}:</span> ${item.example}</p>` : ''}
+                <div class="px-4 pb-5 pt-2 space-y-3 border-t border-outline-variant/70 bg-surface-container-low/70 dark:bg-slate-900/45">
+                  ${item.reason ? `<p class="text-sm text-on-surface-variant dark:text-slate-300 break-words"><span class="font-semibold text-on-surface dark:text-slate-100">${t('reason')}:</span> ${item.reason}</p>` : ''}
+                  ${item.action ? `<p class="text-sm text-on-surface-variant dark:text-slate-300 break-words"><span class="font-semibold text-on-surface dark:text-slate-100">${t('action')}:</span> ${item.action}</p>` : ''}
+                  ${item.example ? `<p class="text-sm text-on-surface-variant dark:text-slate-300 break-words"><span class="font-semibold text-on-surface dark:text-slate-100">${t('example')}:</span> ${item.example}</p>` : ''}
                   ${renderFutureFields(item)}
                 </div>
               </details>`;
@@ -686,7 +684,7 @@
       .map((item) => {
         const date = new Date(item.createdAt).toLocaleDateString();
         return `
-          <button data-open="${item.analysisId}" class="w-full grid grid-cols-12 px-6 py-5 items-center hover:bg-surface-container-low/30 transition-colors group text-left">
+          <button data-open="${item.analysisId}" class="w-full grid grid-cols-12 px-6 py-5 items-center hover:bg-surface-container-low/30 dark:hover:bg-slate-800/55 transition-colors group text-left">
             <div class="col-span-7 md:col-span-5 flex items-center gap-4">
               <div class="w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center text-primary">
                 <span class="material-symbols-outlined">analytics</span>
