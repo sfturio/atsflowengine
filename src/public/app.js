@@ -181,13 +181,13 @@
 
   function scoreColor(score) {
     if (score >= 80) return 'text-primary';
-    if (score >= 60) return 'text-tertiary';
+    if (score >= 60) return 'text-[#9A3412]';
     return 'text-error';
   }
 
   function progressColor(score) {
     if (score >= 80) return 'bg-primary';
-    if (score >= 60) return 'bg-tertiary-container';
+    if (score >= 60) return 'bg-[#F59E0B]';
     return 'bg-error';
   }
 
