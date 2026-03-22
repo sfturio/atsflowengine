@@ -446,6 +446,18 @@
     return { tint: '#EFF6FF', accent: '#2563EB' };
   }
 
+  function priorityLabelPt(priority) {
+    const normalized = String(priority || '').toLowerCase();
+    if (normalized === 'high') return 'ALTA PRIORIDADE';
+    if (normalized === 'medium') return 'MÉDIA PRIORIDADE';
+    return 'BAIXA PRIORIDADE';
+  }
+
+  function priorityPill(priority) {
+    const tone = priorityTone(priority);
+    return `<span class="mono-label uppercase px-2 py-1 rounded text-[10px] border" style="color:${tone.accent}; background:${tone.tint}; border-color:${tone.accent}33;">${priorityLabelPt(priority)}</span>`;
+  }
+
   function priorityRank(priority) {
     const normalized = String(priority || '').toLowerCase();
     if (normalized === 'high') return 0;
@@ -550,6 +562,7 @@
                     <p class="text-sm font-semibold text-on-surface break-words">${item.title}</p>
                   </div>
                   <div class="flex items-center gap-2 shrink-0">
+                    ${priorityPill(item.priority)}
                     ${categoryTag(item.category)}
                     <span class="material-symbols-outlined text-slate-400 transition-transform group-open:rotate-180">expand_more</span>
                   </div>
@@ -605,6 +618,7 @@
                     <p class="text-sm font-semibold text-on-surface break-words">${item.title}</p>
                   </div>
                   <div class="flex items-center gap-2 shrink-0">
+                    ${priorityPill(item.priority)}
                     ${categoryTag(item.category)}
                     <span class="material-symbols-outlined text-slate-400 transition-transform group-open:rotate-180">expand_more</span>
                   </div>
