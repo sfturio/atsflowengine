@@ -405,9 +405,9 @@
           };
 
     return `
-      <div class="premium-card premium-hover p-8 border border-outline-variant/60" style="background:${toneMeta.tint}; border-left:4px solid ${toneMeta.accent}; box-shadow: var(--card-shadow-soft);">
-        <p class="mono-label uppercase text-on-surface-variant/70 mb-2">${toneMeta.label}</p>
-        <h4 class="text-[1.75rem] font-bold tracking-tight mb-4">${title}</h4>
+      <div class="premium-card premium-hover p-6 border border-outline-variant/60" style="background:${toneMeta.tint}; border-left:4px solid ${toneMeta.accent}; box-shadow: var(--card-shadow-soft);">
+        <p class="mono-label uppercase text-on-surface-variant/70 mb-1.5">${toneMeta.label}</p>
+        <h4 class="text-2xl font-bold tracking-tight mb-3">${title}</h4>
         <div class="flex flex-wrap gap-2">
           ${items.length ? items.map((i) => `<span class="px-3 py-1 ${toneMeta.chip} text-xs font-semibold rounded-full border">${i}</span>`).join('') : `<span class="text-on-surface-variant text-sm">${t('none')}</span>`}
         </div>
