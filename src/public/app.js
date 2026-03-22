@@ -514,16 +514,15 @@
   function IssuesPanel(items, title) {
     const issues = Array.isArray(items) ? items.map(normalizeIssue) : [];
     return `
-      <div class="premium-card p-7">
+      <div class="premium-card p-7 bg-[#FCFDFF]">
         <h4 class="text-lg font-bold mb-5">${title}</h4>
         <div class="space-y-5">
           ${issues.length
             ? issues
-                .map((item, idx) => {
+                .map((item) => {
                   const tone = priorityTone(item.priority);
-                  const patternedTint = idx % 2 === 0 ? tone.tint : '#FFFFFF';
                   return `
-              <details open class="group premium-hover rounded-2xl border border-outline-variant overflow-hidden" style="background:${patternedTint}; border-left:4px solid ${tone.accent}; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+              <details open class="group premium-hover rounded-2xl border border-outline-variant/70 overflow-hidden" style="background:${tone.tint}; border-left:4px solid ${tone.accent}; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
                 <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap items-start gap-3 justify-between">
                   <div class="min-w-0 flex-1">
                     <p class="text-sm font-semibold text-on-surface break-words">${item.title}</p>
@@ -534,7 +533,7 @@
                     <span class="material-symbols-outlined text-slate-400 transition-transform group-open:rotate-180">expand_more</span>
                   </div>
                 </summary>
-                <div class="px-4 pb-5 pt-2 space-y-3 border-t border-outline-variant/70">
+                <div class="px-4 pb-5 pt-2 space-y-3 border-t border-outline-variant/70 bg-white/65">
                   ${item.reason ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('reason')}:</span> ${item.reason}</p>` : ''}
                   ${item.impact ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('impact')}:</span> ${item.impact}</p>` : ''}
                   ${item.action ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('action')}:</span> ${item.action}</p>` : ''}
@@ -570,16 +569,15 @@
   function SuggestionsPanel(items, title) {
     const suggestions = Array.isArray(items) ? items.map(normalizeSuggestion) : [];
     return `
-      <div class="premium-card p-7">
+      <div class="premium-card p-7 bg-[#FCFDFF]">
         <h4 class="text-lg font-bold mb-5">${title}</h4>
         <div class="space-y-5">
           ${suggestions.length
             ? suggestions
-                .map((item, idx) => {
+                .map((item) => {
                   const tone = priorityTone(item.priority);
-                  const patternedTint = idx % 2 === 0 ? '#FFFFFF' : tone.tint;
                   return `
-              <details open class="group premium-hover rounded-2xl border border-outline-variant overflow-hidden" style="background:${patternedTint}; border-left:4px solid ${tone.accent}; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+              <details open class="group premium-hover rounded-2xl border border-outline-variant/70 overflow-hidden" style="background:${tone.tint}; border-left:4px solid ${tone.accent}; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
                 <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap items-start gap-3 justify-between">
                   <div class="min-w-0 flex-1">
                     <p class="text-sm font-semibold text-on-surface break-words">${item.title}</p>
@@ -590,7 +588,7 @@
                     <span class="material-symbols-outlined text-slate-400 transition-transform group-open:rotate-180">expand_more</span>
                   </div>
                 </summary>
-                <div class="px-4 pb-5 pt-2 space-y-3 border-t border-outline-variant/70">
+                <div class="px-4 pb-5 pt-2 space-y-3 border-t border-outline-variant/70 bg-white/65">
                   ${item.reason ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('reason')}:</span> ${item.reason}</p>` : ''}
                   ${item.action ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('action')}:</span> ${item.action}</p>` : ''}
                   ${item.example ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('example')}:</span> ${item.example}</p>` : ''}
