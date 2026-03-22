@@ -714,8 +714,8 @@
 
         ${state.error ? `<div class="bg-error-container text-on-error-container rounded-xl p-4 font-medium">${state.error}</div>` : ''}
 
-        <div class="bg-surface-container-low/50 rounded-2xl overflow-hidden p-1">
-          <div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+        <div class="rounded-2xl overflow-hidden">
+          <div class="bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden border border-outline-variant/50 dark:border-slate-700/45">
             <div class="grid grid-cols-12 px-6 py-4 bg-surface-container-low text-[11px] font-bold uppercase tracking-widest text-on-surface-variant/70">
               <div class="col-span-7 md:col-span-5">${t('tableRole')}</div>
               <div class="col-span-3 md:col-span-3 text-center">${t('tableSource')}</div>
