@@ -433,6 +433,25 @@
     return { tint: '#F4F7FF', accent: '#5B6CFF' };
   }
 
+  function priorityRank(priority) {
+    const normalized = String(priority || '').toLowerCase();
+    if (normalized === 'high') return 0;
+    if (normalized === 'medium') return 1;
+    if (normalized === 'low') return 2;
+    return 3;
+  }
+
+  function sortByPriority(items) {
+    return items
+      .map((item, idx) => ({ item, idx }))
+      .sort((a, b) => {
+        const rankDiff = priorityRank(a.item.priority) - priorityRank(b.item.priority);
+        if (rankDiff !== 0) return rankDiff;
+        return a.idx - b.idx;
+      })
+      .map((entry) => entry.item);
+  }
+
   function normalizeSuggestion(rawItem) {
     if (typeof rawItem === 'string') {
       return {
@@ -501,7 +520,7 @@
   }
 
   function IssuesPanel(items, title) {
-    const issues = Array.isArray(items) ? items.map(normalizeIssue) : [];
+    const issues = Array.isArray(items) ? sortByPriority(items.map(normalizeIssue)) : [];
     return `
       <div class="premium-card p-7 bg-[#FCFDFF]">
         <h4 class="text-lg font-bold mb-5">${title}</h4>
@@ -555,7 +574,7 @@
   }
 
   function SuggestionsPanel(items, title) {
-    const suggestions = Array.isArray(items) ? items.map(normalizeSuggestion) : [];
+    const suggestions = Array.isArray(items) ? sortByPriority(items.map(normalizeSuggestion)) : [];
     return `
       <div class="premium-card p-7 bg-[#FCFDFF]">
         <h4 class="text-lg font-bold mb-5">${title}</h4>
