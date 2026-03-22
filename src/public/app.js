@@ -613,11 +613,11 @@
                   const tone = priorityTone(item.priority);
                   return `
               <details open class="group premium-hover rounded-2xl border border-outline-variant/60 overflow-hidden bg-surface-container-lowest dark:bg-slate-900/70" style="border-left:4px solid ${tone.accent}; box-shadow: var(--card-shadow-soft);">
-                <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap items-start gap-3 justify-between">
+                <summary class="list-none cursor-pointer px-4 py-4 grid grid-cols-1 sm:grid-cols-[1fr_auto] items-start gap-3">
                   <div class="min-w-0 flex-1">
                     <p class="text-sm font-semibold text-on-surface dark:text-slate-100 break-words">${item.title}</p>
                   </div>
-                  <div class="flex items-center gap-2 shrink-0">
+                  <div class="flex items-center gap-2 justify-between sm:justify-end min-w-0">
                     ${priorityPill(item.priority)}
                     ${categoryTag(item.category)}
                     <span class="material-symbols-outlined text-slate-400 dark:text-slate-300 transition-transform group-open:rotate-180">expand_more</span>
@@ -669,11 +669,11 @@
                   const tone = priorityTone(item.priority);
                   return `
               <details open class="group premium-hover rounded-2xl border border-outline-variant/60 overflow-hidden bg-surface-container-lowest dark:bg-slate-900/70" style="border-left:4px solid ${tone.accent}; box-shadow: var(--card-shadow-soft);">
-                <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap items-start gap-3 justify-between">
+                <summary class="list-none cursor-pointer px-4 py-4 grid grid-cols-1 sm:grid-cols-[1fr_auto] items-start gap-3">
                   <div class="min-w-0 flex-1">
                     <p class="text-sm font-semibold text-on-surface dark:text-slate-100 break-words">${item.title}</p>
                   </div>
-                  <div class="flex items-center gap-2 shrink-0">
+                  <div class="flex items-center gap-2 justify-between sm:justify-end min-w-0">
                     ${priorityPill(item.priority)}
                     ${categoryTag(item.category)}
                     <span class="material-symbols-outlined text-slate-400 dark:text-slate-300 transition-transform group-open:rotate-180">expand_more</span>
