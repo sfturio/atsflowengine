@@ -389,8 +389,8 @@
 
   function chipCard(title, items, tone) {
     const cls = tone === 'primary'
-      ? 'bg-primary/10 text-primary border-primary/5'
-      : 'bg-tertiary-container/10 text-tertiary-container border-tertiary-container/5';
+      ? 'bg-[#EEF2FF] text-[#2F3FA7] border-[#C7D2FE]'
+      : 'bg-[#FFF1E8] text-[#9A3412] border-[#FBD2B4]';
 
     return `
       <div class="premium-card p-6 border-l-4 ${tone === 'primary' ? 'border-primary' : 'border-tertiary-container'}">
@@ -415,17 +415,6 @@
         </ul>
       </div>
     `;
-  }
-
-  function priorityBadge(priority) {
-    const normalized = (priority || 'low').toLowerCase();
-    if (normalized === 'high') {
-      return '<span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold border" style="background:#FFF4F4;color:#F04438;border-color:#FBCACA;">🔴 High</span>';
-    }
-    if (normalized === 'medium') {
-      return '<span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold border" style="background:#FFF8F1;color:#F59E0B;border-color:#FDE1C2;">🟡 Medium</span>';
-    }
-    return '<span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold border" style="background:#F4F7FF;color:#5B6CFF;border-color:#DCE4FF;">🔵 Low</span>';
   }
 
   function categoryTag(category) {
@@ -528,7 +517,6 @@
                     <p class="text-sm font-semibold text-on-surface break-words">${item.title}</p>
                   </div>
                   <div class="flex items-center gap-2 shrink-0">
-                    ${priorityBadge(item.priority)}
                     ${categoryTag(item.category)}
                     <span class="material-symbols-outlined text-slate-400 transition-transform group-open:rotate-180">expand_more</span>
                   </div>
@@ -583,7 +571,6 @@
                     <p class="text-sm font-semibold text-on-surface break-words">${item.title}</p>
                   </div>
                   <div class="flex items-center gap-2 shrink-0">
-                    ${priorityBadge(item.priority)}
                     ${categoryTag(item.category)}
                     <span class="material-symbols-outlined text-slate-400 transition-transform group-open:rotate-180">expand_more</span>
                   </div>
