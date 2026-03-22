@@ -45,6 +45,11 @@
     keywordsMissing: 'Palavras-chave ausentes',
     detectedIssues: 'Problemas detectados',
     suggestions: 'Sugestões práticas',
+    reason: 'Motivo',
+    impact: 'Impacto',
+    action: 'Ação recomendada',
+    evidence: 'Evidência',
+    example: 'Exemplo',
     none: 'Nenhum',
     historyTitle: 'Histórico de análises',
     historySub: 'Abra qualquer análise ATS salva.',
@@ -359,8 +364,8 @@
             ${chipCard(t('keywordsMissing'), r.keywordsMissing || [], 'tertiary')}
           </div>
           <div class="space-y-6">
-            ${listCard(t('detectedIssues'), r.detectedIssues || [], 'report', 'error')}
-            ${orderedCard(t('suggestions'), r.improvementSuggestions || [])}
+            ${IssuesPanel(r.detectedIssueInsights || r.detectedIssues || [], t('detectedIssues'))}
+            ${SuggestionsPanel(r.analysisSuggestions || r.improvementSuggestions || [], t('suggestions'))}
           </div>
         </section>
       </div>
@@ -411,17 +416,175 @@
     `;
   }
 
-  function orderedCard(title, items) {
+  function priorityBadge(priority) {
+    const normalized = (priority || 'low').toLowerCase();
+    if (normalized === 'high') {
+      return '<span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold bg-red-50 text-red-700 border border-red-200">🔴 High</span>';
+    }
+    if (normalized === 'medium') {
+      return '<span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200">🟡 Medium</span>';
+    }
+    return '<span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200">🔵 Low</span>';
+  }
+
+  function categoryTag(category) {
+    const label = category || 'Content';
+    return `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">${label}</span>`;
+  }
+
+  function normalizeSuggestion(rawItem) {
+    if (typeof rawItem === 'string') {
+      return {
+        title: rawItem,
+        priority: 'low',
+        category: 'Content'
+      };
+    }
+
+    if (!rawItem || typeof rawItem !== 'object') {
+      return {
+        title: t('none'),
+        priority: 'low',
+        category: 'Content'
+      };
+    }
+
+    return {
+      ...rawItem,
+      title: rawItem.title || t('none'),
+      priority: rawItem.priority || 'low',
+      category: rawItem.category || 'Content'
+    };
+  }
+
+  function normalizeIssue(rawItem) {
+    if (typeof rawItem === 'string') {
+      return {
+        title: rawItem,
+        priority: 'medium',
+        category: 'ATS'
+      };
+    }
+
+    if (!rawItem || typeof rawItem !== 'object') {
+      return {
+        title: t('none'),
+        priority: 'low',
+        category: 'ATS'
+      };
+    }
+
+    return {
+      ...rawItem,
+      title: rawItem.title || t('none'),
+      priority: rawItem.priority || 'medium',
+      category: rawItem.category || 'ATS'
+    };
+  }
+
+  function renderFutureIssueFields(issue) {
+    const known = new Set(['title', 'reason', 'impact', 'action', 'evidence', 'priority', 'category']);
+    const extraEntries = Object.entries(issue).filter(([key, value]) => !known.has(key) && value != null && value !== '');
+    if (!extraEntries.length) return '';
+
+    return `
+      <div class="space-y-2 pt-2 border-t border-slate-100">
+        ${extraEntries
+          .map(([key, value]) => {
+            const renderedValue = Array.isArray(value) ? value.join(', ') : String(value);
+            return `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${key}:</span> ${renderedValue}</p>`;
+          })
+          .join('')}
+      </div>
+    `;
+  }
+
+  function IssuesPanel(items, title) {
+    const issues = Array.isArray(items) ? items.map(normalizeIssue) : [];
     return `
       <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
         <h4 class="text-base font-bold mb-4">${title}</h4>
-        <ol class="space-y-3">
-          ${items.length ? items.map((item, idx) => `
-            <li class="flex gap-3 items-start">
-              <span class="w-6 h-6 rounded-full bg-slate-100 text-primary text-xs font-bold flex items-center justify-center">${idx + 1}</span>
-              <p class="text-sm text-on-surface-variant">${item}</p>
-            </li>`).join('') : `<li class="text-sm text-on-surface-variant">${t('none')}</li>`}
-        </ol>
+        <div class="space-y-4">
+          ${issues.length
+            ? issues
+                .map(
+                  (item) => `
+              <details class="group rounded-xl border border-slate-200 bg-white overflow-hidden">
+                <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap items-start gap-3 justify-between">
+                  <div class="min-w-0 flex-1">
+                    <p class="text-sm font-semibold text-on-surface break-words">${item.title}</p>
+                  </div>
+                  <div class="flex items-center gap-2 shrink-0">
+                    ${priorityBadge(item.priority)}
+                    ${categoryTag(item.category)}
+                    <span class="material-symbols-outlined text-slate-400 transition-transform group-open:rotate-180">expand_more</span>
+                  </div>
+                </summary>
+                <div class="px-4 pb-4 pt-1 space-y-3 border-t border-slate-100 bg-slate-50/60">
+                  ${item.reason ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('reason')}:</span> ${item.reason}</p>` : ''}
+                  ${item.impact ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('impact')}:</span> ${item.impact}</p>` : ''}
+                  ${item.action ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('action')}:</span> ${item.action}</p>` : ''}
+                  ${item.evidence ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('evidence')}:</span> ${item.evidence}</p>` : ''}
+                  ${renderFutureIssueFields(item)}
+                </div>
+              </details>`
+                )
+                .join('')
+            : `<p class="text-sm text-on-surface-variant">${t('none')}</p>`}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderFutureFields(suggestion) {
+    const known = new Set(['title', 'reason', 'action', 'example', 'priority', 'category']);
+    const extraEntries = Object.entries(suggestion).filter(([key, value]) => !known.has(key) && value != null && value !== '');
+    if (!extraEntries.length) return '';
+
+    return `
+      <div class="space-y-2 pt-2 border-t border-slate-100">
+        ${extraEntries
+          .map(([key, value]) => {
+            const renderedValue = Array.isArray(value) ? value.join(', ') : String(value);
+            return `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${key}:</span> ${renderedValue}</p>`;
+          })
+          .join('')}
+      </div>
+    `;
+  }
+
+  function SuggestionsPanel(items, title) {
+    const suggestions = Array.isArray(items) ? items.map(normalizeSuggestion) : [];
+    return `
+      <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+        <h4 class="text-base font-bold mb-4">${title}</h4>
+        <div class="space-y-4">
+          ${suggestions.length
+            ? suggestions
+                .map(
+                  (item) => `
+              <details class="group rounded-xl border border-slate-200 bg-white overflow-hidden">
+                <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap items-start gap-3 justify-between">
+                  <div class="min-w-0 flex-1">
+                    <p class="text-sm font-semibold text-on-surface break-words">${item.title}</p>
+                  </div>
+                  <div class="flex items-center gap-2 shrink-0">
+                    ${priorityBadge(item.priority)}
+                    ${categoryTag(item.category)}
+                    <span class="material-symbols-outlined text-slate-400 transition-transform group-open:rotate-180">expand_more</span>
+                  </div>
+                </summary>
+                <div class="px-4 pb-4 pt-1 space-y-3 border-t border-slate-100 bg-slate-50/60">
+                  ${item.reason ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('reason')}:</span> ${item.reason}</p>` : ''}
+                  ${item.action ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('action')}:</span> ${item.action}</p>` : ''}
+                  ${item.example ? `<p class="text-sm text-on-surface-variant break-words"><span class="font-semibold text-on-surface">${t('example')}:</span> ${item.example}</p>` : ''}
+                  ${renderFutureFields(item)}
+                </div>
+              </details>`
+                )
+                .join('')
+            : `<p class="text-sm text-on-surface-variant">${t('none')}</p>`}
+        </div>
       </div>
     `;
   }

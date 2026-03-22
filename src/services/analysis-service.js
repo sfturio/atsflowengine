@@ -31,17 +31,10 @@ function applyLlmAssist(baseResult, llmText) {
       )
   );
   const firstSentence = firstSentenceCandidate || baseResult.shortFinalSummary;
-  const bulletSuggestions = lines
-    .filter((line) => line.startsWith("-"))
-    .map((line) => line.replace(/^-+\s*/, ""))
-    .slice(0, 5);
 
   return {
     ...baseResult,
-    shortFinalSummary: firstSentence,
-    improvementSuggestions: bulletSuggestions.length
-      ? bulletSuggestions
-      : baseResult.improvementSuggestions
+    shortFinalSummary: firstSentence
   };
 }
 
@@ -52,7 +45,7 @@ async function runAnalysis({ resumeText, sourceType }) {
   const llmResponse = await generateText({
     systemPrompt: ATS_FEEDBACK_SYSTEM_PROMPT,
     userPrompt: buildAtsFeedbackPrompt({
-      suggestions: deterministic.improvementSuggestions,
+      suggestions: (deterministic.analysisSuggestions || []).map((item) => item.title),
       summary: deterministic.shortFinalSummary
     }),
     temperature: 0.2,
