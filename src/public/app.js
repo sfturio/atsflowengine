@@ -52,7 +52,7 @@
     evidence: 'Evidência',
     example: 'Exemplo',
     none: 'Nenhum',
-    historyTitle: 'Histórico de análises',
+    historyTitle: 'Histórico de análises 📚',
     historySub: 'Abra qualquer análise ATS salva.',
     tableRole: 'Análise',
     tableSource: 'Fonte',
@@ -406,7 +406,7 @@
           <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div class="sm:col-span-2 premium-card premium-card-soft premium-hover p-8">
               <p class="text-[11px] uppercase tracking-[0.1em] text-on-surface-variant/80 font-semibold mb-2">${t('finalSummary')}</p>
-              <h4 class="text-xl font-bold tracking-tight text-on-surface mb-3">Diagnóstico consolidado</h4>
+            <h4 class="text-xl font-bold tracking-tight text-on-surface mb-3">Diagnóstico consolidado 🧭</h4>
               <div class="h-px bg-gradient-to-r from-primary/45 via-primary/12 to-transparent mb-5"></div>
               <p class="text-on-surface-variant text-sm leading-relaxed">${r.shortFinalSummary || t('none')}</p>
             </div>
@@ -452,12 +452,12 @@
         ? {
             accent: '#2563EB',
             chip: 'bg-[#DBEAFE] text-[#1D4ED8] border-[#BFDBFE] dark:bg-blue-950/50 dark:text-blue-200 dark:border-blue-800/80',
-            label: 'Competências mapeadas'
+            label: 'Competências mapeadas ✨'
           }
         : {
             accent: '#D97706',
             chip: 'bg-[#FEF3C7] text-[#92400E] border-[#FDE68A] dark:bg-amber-950/45 dark:text-amber-200 dark:border-amber-800/80',
-            label: 'Lacunas de palavras-chave'
+            label: 'Lacunas de palavras-chave 🔎'
           };
 
     return `
@@ -604,7 +604,7 @@
     const issues = Array.isArray(items) ? sortByPriority(items.map(normalizeIssue)) : [];
     return `
       <div class="premium-card premium-card-soft premium-hover p-8">
-        <p class="mono-label uppercase text-on-surface-variant/70 mb-2">Análise crítica</p>
+        <p class="mono-label uppercase text-on-surface-variant/70 mb-2">Análise crítica ⚠️</p>
         <h4 class="text-lg font-bold mb-5">${title}</h4>
         <div class="space-y-5">
           ${issues.length
@@ -660,7 +660,7 @@
     const suggestions = Array.isArray(items) ? sortByPriority(items.map(normalizeSuggestion)) : [];
     return `
       <div class="premium-card premium-card-soft premium-hover p-8">
-        <p class="mono-label uppercase text-on-surface-variant/70 mb-2">Plano de melhoria</p>
+        <p class="mono-label uppercase text-on-surface-variant/70 mb-2">Plano de melhoria 🚀</p>
         <h4 class="text-lg font-bold mb-5">${title}</h4>
         <div class="space-y-5">
           ${suggestions.length
