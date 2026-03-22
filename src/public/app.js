@@ -452,12 +452,12 @@
         ? {
             accent: '#2563EB',
             chip: 'bg-[#DBEAFE] text-[#1D4ED8] border-[#BFDBFE] dark:bg-blue-950/50 dark:text-blue-200 dark:border-blue-800/80',
-            label: 'Competências mapeadas ✨'
+            label: 'Competências mapeadas'
           }
         : {
             accent: '#D97706',
             chip: 'bg-[#FEF3C7] text-[#92400E] border-[#FDE68A] dark:bg-amber-950/45 dark:text-amber-200 dark:border-amber-800/80',
-            label: 'Lacunas de palavras-chave 🔎'
+            label: 'Lacunas de palavras-chave'
           };
 
     return `
